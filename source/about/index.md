@@ -1,4 +1,4 @@
-title: 关于
+title: 关于成交
 layout: about
 ---
 大家好，我是XXX。欢迎来到我的个人技术博客。
