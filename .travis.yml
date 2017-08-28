@@ -16,7 +16,7 @@ after_script:
 - git config user.email "1066628577@qq.com"
 - git add .
 - git commit -m "Update docs"
-- git push --force --quiet "https://${GitHub_TOKEN}@${GH_REF}" master:master
+- git push --force --quiet "https://${Github_username}:${Github_password}@${GH_REF}" master:master
 # E: Build LifeCycle
 branches:
 only:
