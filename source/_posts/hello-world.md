@@ -6,12 +6,14 @@ Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [docume
 ## Quick Start
 ###project init
 ```
-0.$ hexo init
+ $ hexo init
+```
+`这只是一个测试`
 
 ### Create a new post
 
 ``` bash
-1.$ hexo new "My New Post"
+$ hexo new "My New Post"
 ```
 
 More info: [Writing](https://hexo.io/docs/writing.html)
@@ -19,7 +21,7 @@ More info: [Writing](https://hexo.io/docs/writing.html)
 ### Run server
 
 ``` bash
-2.$ hexo server
+$ hexo server
 ```
 
 More info: [Server](https://hexo.io/docs/server.html)
