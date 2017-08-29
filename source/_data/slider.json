@@ -1,17 +1,17 @@
 [{
-    "image": "chenjiaobin.github.io/css/images/banner3.jpg",
+    "image": "https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/master/css/images/banner3.jpg",
     "align": "center",
     "title": "This is our High-tech!",
     "subtitle": "Master the latest technology",
 	"link": "/"
 }, {
-    "image": "chenjiaobin.github.io/css/images/banner2.jpg",
+    "image": "https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/master/css/images/banner2.jpg",
     "align": "left",
     "title": "The world in your hand",
     "subtitle": "Try our best",
 	"link": "https://weibo.com/u/2956405011?is_all=1"
 }, {
-    "image": "chenjiaobin.github.io/css/images/banner1.jpg",
+    "image": "https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/master/css/images/banner1.jpg",
     "align": "right",
     "title": "Hacker thinking",
     "subtitle": "You can do it",
