@@ -1,19 +1,19 @@
 [{
-    "image": "http://lorempixel.com/580/250/nature/1",
+    "image": "chenjiaobin.github.io/css/images/banner3.jpg",
     "align": "center",
-    "title": "This is our big Tagline!",
-    "subtitle": "Here's our small slogan.",
+    "title": "This is our High-tech!",
+    "subtitle": "Master the latest technology",
 	"link": "/"
 }, {
-    "image": "http://lorempixel.com/580/250/nature/2",
+    "image": "chenjiaobin.github.io/css/images/banner2.jpg",
     "align": "left",
-    "title": "Left Aligned Caption",
-    "subtitle": "Here's our small slogan.",
-	"link": null
+    "title": "The world in your hand",
+    "subtitle": "Try our best",
+	"link": "https://weibo.com/u/2956405011?is_all=1"
 }, {
-    "image": "http://lorempixel.com/580/250/nature/3",
+    "image": "chenjiaobin.github.io/css/images/banner1.jpg",
     "align": "right",
-    "title": "Right Aligned Caption",
-    "subtitle": "Here's our small slogan.",
-	"link": null
+    "title": "Hacker thinking",
+    "subtitle": "You can do it",
+	"link": "/"
 }]
