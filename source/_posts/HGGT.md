@@ -83,4 +83,26 @@ hexo d
 ```
 好了，在你的github上面已经能看到你的东西了，也直接可以访问了
 
+继续，还有活干呢！！已经快到达终点了哈
+### 配置Tracis
+其实这个也不用怎么配置那，不要被吓到，用GitHub账号登录，然后点击`sync acconunt`将你GitHub上面的仓库同步过来，然后点击你要部署的仓库，将前面的开关开起来，接着点击项目链接进入页面，在这个页面你会看到`more option`,选中里面的`setting`,将general里面的`Build only ...`开起来，其他默认。接着还有，将下面的`Environment Variables`设置变量，在这里先停一下，先到你根目录创建一个`.travis.yml`文件，这个文件非常重要，文件内容可以参考该[链接](https://troyyang.com/2017/06/24/Travis_Auto_Build_Deploy_Github_Projects/)修改你的账户和邮箱和创库
+接着就右键项目，创建新分支，执行
+```
+git branch source  #名字自己随意,但是这个名字要跟.travis.yml里面的branch的名字一样
+```
+然后在通过执行以下命令将分支提交到你的仓库
+```
+git checkout source #切换分支
+git add  .
+git commit -m '提交说明'
+git pull
+git push origin source #提交分支
+```
+接着继续回到travis，刚才那个`name`的值就是.travis.yml里面那个`git push --force --quiet "https://${GitHub_TOKEN}@${GH_REF}" master:master`里面的`GitHub_TOKEN`，后面的值就是你在前面复制到github上面的公钥的内容，复制一遍到这里来，点击`add`，就ok了
+
+不出意外，你的博客已经建好了，是不是很嗨森！！！
+如果命不好出现问题那只能自己慢慢调试了，这也能锻炼你调试代码和配置的能力！！
+总之，加油吧！！
+骚年
+
 
