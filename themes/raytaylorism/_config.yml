@@ -40,14 +40,14 @@ color:
   side_nav: indigo darken-1
   tag: pink lighten-1
   article_title_link: indigo
-  link: pink
-  pagination: pink
-  tab: pink
+  link: mediumturquoise
+  pagination: mediumturquoise
+  tab: mediumturquoise
   archive_item: grey
-  fab: pink
+  fab: mediumturquoise
   fab_2: green
   fab_3: yellow darken-1
-  new: pink
+  new: mediumturquoise
   about_header: indigo
   about_title: indigo
 
