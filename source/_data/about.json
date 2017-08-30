@@ -1,27 +1,23 @@
 {
     "avatar": "http://ww2.sinaimg.cn/small/74990035jw1f1rjkd681bj20rs0rsdhg.jpg",
-    "name": "陈焦滨/kevin",
-	"tag": "Web前端/技术宅",
-    "desc": "爱编程、爱玩游戏、爱运动",
+    "name": "你的大名",
+	"tag": "Web前端/iOS/技术宅",
+    "desc": "你的简介（建议一两句话）",
     "skills": {
-	 "HTML/CSS": 9,
-         "Javascript": 8,
-	 "Vue.js": 5,
-	  "Webpack": 5,
-          "invisible-split-line-1": -1,
-         "PHP": 6,
-	 "JAVA": 4,
-	  "Linux": 7,
-	    "invisible-split-line-1": -1,
-	    "PhotoShop": 8
+        "Javascript": 8,
+		"Python": 6,
+		
+		"invisible-split-line-1": -1,
+
+		"Node.js": 4
     },
     "projects": [{
-		"name": "高仿电商网站",
-		"image": "https://d13yacurqjgara.cloudfront.net/users/4094/screenshots/2578885/time-lords-drib_1x.jpg",
-		"tags": ["2016年", "电商网站"],
-		"description": "这个电商网站是模仿天猫和淘宝等网站进行构建的，主要用到的技术有Html\CSS\JavaScript\JQuery",
-		"link_text": "项目访问地址",
-		"link": "https://chenjiaobin.github.io/shop/"
+		"name": "你的项目A",
+		"image": "https://d13yacurqjgara.cloudfront.net/users/138819/screenshots/2578899/dribbble_800x600_01_1x.png",
+		"tags": ["2016年", "项目标签"],
+		"description": "你的项目A的简介",
+		"link_text": "网站链接",
+		"link": "https://dribbble.com/"
 	}, {
 		"name": "你的作品B",
 		"image": "https://d13yacurqjgara.cloudfront.net/users/4094/screenshots/2578885/time-lords-drib_1x.jpg",
@@ -31,7 +27,7 @@
 		"link": "https://github.com/"
 	}],
 	"reward": [
-	    "https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/Source/themes/raytaylorism/source/weixin.jpg",
-		"https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/Source/themes/raytaylorism/source/zhifubao.jpg"
+	    "http://raytaylorlin-blog.qiniudn.com/image/about/weixin_reward.png",
+		"http://raytaylorlin-blog.qiniudn.com/image/about/zhifubao_reward.png"
 	]
 }
