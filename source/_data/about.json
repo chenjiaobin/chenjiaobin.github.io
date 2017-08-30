@@ -1,15 +1,21 @@
 {
     "avatar": "http://ww2.sinaimg.cn/small/74990035jw1f1rjkd681bj20rs0rsdhg.jpg",
     "name": "你的大名",
-	"tag": "Web前端/iOS/技术宅",
-    "desc": "你的简介（建议一两句话）",
+	"tag": "Web前端/技术宅",
+    "desc": "爱编程、爱玩游戏、爱运动",
     "skills": {
         "Javascript": 8,
-		"Python": 6,
+		"HTML/CSS": 9,
+	        "JQuery": 7,
+	         "Vue.js": 7,
+	         "Bootstrap": 7,
+	         "Webpack": 5,
+	         "GitHub": 6
 		
 		"invisible-split-line-1": -1,
 
-		"Node.js": 4
+		"PHP": 8,
+	        "Java": 5
     },
     "projects": [{
 		"name": "你的项目A",
