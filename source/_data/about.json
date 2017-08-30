@@ -18,12 +18,12 @@
 	        "Java": 5
     },
     "projects": [{
-		"name": "你的项目A",
-		"image": "https://d13yacurqjgara.cloudfront.net/users/138819/screenshots/2578899/dribbble_800x600_01_1x.png",
-		"tags": ["2016年", "项目标签"],
-		"description": "你的项目A的简介",
+		"name": "电商网站",
+		"image": "https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/Source/themes/raytaylorism/source/css/images/shop_show.jpg",
+		"tags": ["2016年", "电商网站"],
+		"description": "这个电商网站是模仿天猫和淘宝等大型电商网站的模型，实现了整个购物流程(商品选购--加入购物车--购买)，以及实现了后台多角色管理和商品上传功能！",
 		"link_text": "网站链接",
-		"link": "https://dribbble.com/"
+		"link": "https://chenjiaobin.github.io/shop/"
 	}, {
 		"name": "你的作品B",
 		"image": "https://d13yacurqjgara.cloudfront.net/users/4094/screenshots/2578885/time-lords-drib_1x.jpg",
