@@ -19,7 +19,7 @@
 		"name": "高仿电商网站",
 		"image": "https://d13yacurqjgara.cloudfront.net/users/4094/screenshots/2578885/time-lords-drib_1x.jpg",
 		"tags": ["2016年", "电商网站"],
-		"description": "这个电商网站是模仿天猫和淘宝等网站进行构建的，主要用到的技术有Html\CSS\JavaScript\JQuery,后台用的语言是PHP，数据库使用Mysql,实现了一个正规网站应有的流程，从商品的选购到加入购物车到结算整个流程都打通了，同时也实现了后台多角色管理的功能以及商品的上传等，具体请查看网站吧！！",
+		"description": "这个电商网站是模仿天猫和淘宝等网站进行构建的，主要用到的技术有Html\CSS\JavaScript\JQuery",
 		"link_text": "项目访问地址",
 		"link": "https://chenjiaobin.github.io/shop/"
 	}, {
