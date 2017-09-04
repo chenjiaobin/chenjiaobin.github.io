@@ -21,3 +21,42 @@ categories:
 * 箭头函数的this是定义函数时所在上下文中的this。
 
 * 箭头函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+各式各样的说法都有，乍看下感觉说的差不多。废话不多说，凭着你之前的理解，来先做一套题吧（非严格模式下）。
+```
+/**
+ * Question 1
+ */
+
+var name = 'window'
+
+var person1 = {
+  name: 'person1',
+  show1: function () {
+    console.log(this.name)
+  },
+  show2: () => console.log(this.name),
+  show3: function () {
+    return function () {
+      console.log(this.name)
+    }
+  },
+  show4: function () {
+    return () => console.log(this.name)
+  }
+}
+var person2 = { name: 'person2' }
+
+person1.show1()
+person1.show1.call(person2)
+
+person1.show2()
+person1.show2.call(person2)
+
+person1.show3()()
+person1.show3().call(person2)
+person1.show3.call(person2)()
+
+person1.show4()()
+person1.show4().call(person2)
+person1.show4.call(person2)()
+```
