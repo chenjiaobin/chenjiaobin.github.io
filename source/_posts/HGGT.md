@@ -47,7 +47,7 @@ git config --global user.email "your email"
 
 接着就是创建你的博客了，来吧，继续
 ### Hexo
-Hexo是一套基于node.js的静态博客框架。新建一个文件夹Blog,进入文件夹，右键有个`git bash here`（安装完git才有）,点击进入，执行以下命令
+[Hexo](https://hexo.io/docs/setup.html)是一套基于node.js的静态博客框架。新建一个文件夹Blog,进入文件夹，右键有个`git bash here`（安装完git才有）,点击进入，执行以下命令
 ```
 npm install -g hexo  #全局安装hexo
 
