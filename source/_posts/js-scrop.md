@@ -7,7 +7,7 @@ tags:
 - 闭包
 categories:
 - JS
-- This+scrop+closure
+- This、作用域和闭包
 ---
 日常开发中，我们经常用到this。例如用Jquery绑定事件时，this指向触发事件的DOM元素；编写Vue、React组件时，this指向组件本身。对于新手来说，常会用一种意会的感觉去判断this的指向。以至于当遇到复杂的函数调用时，就分不清this的真正指向。
 <!--more-->
