@@ -43,6 +43,7 @@ table-caption|caption
 ### 实现等高布局
 table表格中的单元格最大的特点之一就是同一行列表元素都等高。所以，很多时候，我们需要等高布局的时候，就可以借助`display:table-cell`属性。说到table-cell的布局，不得不说一下“匿名表格元素创建规则”：
 > 匿名表格元素创建规则:比如在一个子元素上设置`display:table-cell`，没有在父元素上设置`display:table-row`，那么浏览器会默认创建出一个行，也就是相当于帮你加上了display:table-row
+
 场景：实现三列等高布局
 ```
 1.HTML
