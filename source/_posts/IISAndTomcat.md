@@ -102,7 +102,7 @@ worker.examples.lbfactor=1
 2.访问你的域名，正常的话是可以访问，那就成功了，如果显示的页面是IIS页面，那就按我上面的那一个【配置isapi_redirect的第五步重新配置一下】重新配置
 3.如果还是访问不到，那就域名+你的项目名，访问正常的话就OK了，那就去tomcat配置一下你的context内容
 
-[参考文章1](http://blog.csdn.net/baijinwen/article/details/50562996)[参考文章2](http://www.jb51.net/article/109723.htm)
+[参考文章1](http://blog.csdn.net/baijinwen/article/details/50562996)|[参考文章2](http://www.jb51.net/article/109723.htm)
 
 作者：陈焦滨#kevin
 
