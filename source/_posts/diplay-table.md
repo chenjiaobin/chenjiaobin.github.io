@@ -71,7 +71,7 @@ table表格中的单元格最大的特点之一就是同一行列表元素都等
 </div>
 2.CSS
 .box{diplay:table-cell;width:300px;height:500px;vertical-align:middle}
-.text{display:table-cell;vertical-align:middle}
+.text{display:inline-block;vertical-align:middle}
 ```
 **实现图片垂直居中**
 场景：实现宽高不等的图片垂直居中排列
