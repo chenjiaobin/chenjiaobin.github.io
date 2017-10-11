@@ -6,6 +6,7 @@ tags:
 - 作用域
 - 闭包
 categories:
+- 前端
 - JS
 - This、作用域和闭包
 ---
