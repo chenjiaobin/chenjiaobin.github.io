@@ -101,9 +101,10 @@ $.post("/api",{action:"get",name:"chen",function(data,textStatus){
 
 ### JSON
 概念：JavaScript的对象变现法
-优点：读写速度快，简短，javascript内建的方法直接解析
+优点：读写速度快，简短，javascript内建的方法直接解析stringify和parse
 注意：键值对必须用`双引号`，不能用单引号
 json的值可以是：数组，对象，数字，字符串，null
+
 
 ### 跨域
 当协议，子域名，主域名，端口号任意一个不同就是跨域
