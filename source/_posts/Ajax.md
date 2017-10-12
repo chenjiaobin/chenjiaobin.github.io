@@ -18,7 +18,7 @@ function xml(){
   if(window.XMLHttpRequest){
     xmlhttp=new XMLHttpRequest();
   }else{
-    xml=new ActicveXObject();
+    xml=new ActicveXObject("Microsoft.XMLHTTP");
   }
   xmlhttp.onreadystatechange=function(){
     var responseText=JSON.parse(xmlhttp.responseText);
@@ -34,7 +34,7 @@ function xml(){
   if(window.XMLHttpRequest){
     xmlhttp=new XMLHttpRequest();
   }else{
-    xml=new ActicveXObject();
+    xml=new ActicveXObject("Microsoft.XMLHTTP");
   }
   xmlhttp.onreadystatechange=function(){
     var responseText=JSON.parse(xmlhttp.responseText);
