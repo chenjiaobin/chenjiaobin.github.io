@@ -104,8 +104,76 @@ $.post("/api",{action:"get",name:"chen",function(data,textStatus){
 优点：读写速度快，简短，javascript内建的方法直接解析stringify和parse
 注意：键值对必须用`双引号`，不能用单引号
 json的值可以是：数组，对象，数字，字符串，null
+* JSON.parse()
+这个的作用是将JSON字符串` '{"name":"chen"}' `转换成javascript的json对象也就是普通的对象`{name:"chen"}`,他可以传递一个参数，这个参数对每个键值对都会进行过滤筛选
+```
+var a={"name":"chen","age":12}
+var b=JSON.parse(a,function(key,value){
+  if(key==="age"){
+    value=14;
+  }
+  return value;
+})
+console.log(b);
+最后输出的是{name:"chen",age:14}
+```
+* JSON.stringify()
+这个的作用是将对象转换成json字符串，也就是**序列化**的过程。可以传递其他两个参数，第一个参数是过滤器，可以是数组，也可以是一个函数
+```
+var a={"name":"chen","age":12}
+//函数的时候
+var b=JSON.stringify(a,function(key,value){
+  if(key==="age"){
+    value=14;
+  }
+  return value;
+})
+console.log(b);
+最后输出的是{name:"chen",age:14}
 
+//数组的时候
+var b=JSON.stringify(a,["name"]);
+console.log(b)
+最后输出的是{"name":"chen"}
 
+//第三个参数是字符串缩进
+var b=JSON.stringify(a,null,"--");
+console.log(b)
+最后输出的是
+{
+--"name":"chen",
+--"age":12
+}
+```
+
+### JSON和XML的相互转换
+需要下载：jquery,jquery.json2xml.js,jquery.xml2json.js
+* xml转换成json对象
+```
+var str="";
+str+="<root>";
+str+="<name>chen</name>";
+str+="<age>32</age>";
+str+="</root>";
+var obj=$.xml2json(str);
+console.log(str);//结果是{name:"chen",age:32}
+var json=JSON.stringify(obj)//输出是{"name":"chen","age":32}
+```
+* json对象转换成xml
+```
+var a={name:"chen",age:43};
+$.json2xml(a);//输出是<root><name>chen</name><age>43</age></root>
+```
+### GeoJSON和TopoJSON
+测试工具：geojson.io
+这两种是符合JSON数据格式的表示地理信息
+* GeoJSON
+```
+{
+  "type":"point", //表示点,LineString表示面
+  "coordinates":[-105,39]
+}
+```
 ### 跨域
 当协议，子域名，主域名，端口号任意一个不同就是跨域
 javascript的同源策略是对XHR的主要约束，他为通信设置了“相同的域、相同的端口、相同的协议”，视图访问上述限制外的资源会引发安全错误，那么就需要跨域解决方案，这个解决方案就是**CORS(跨源资源共享)** IE8通过XDR（XDomainRequest）对象支持CORS，其他浏览器通过XHR对象原生支持CORS。图像PING和JSONP也类似于CORS，也是解决跨域通信的技术。
