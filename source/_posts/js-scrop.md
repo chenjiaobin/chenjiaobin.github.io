@@ -22,6 +22,23 @@ categories:
 * 箭头函数的this是定义函数时所在上下文中的this。
 
 * 箭头函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+### 箭头函数实际表示
+```
+var test = () => {
+    console.log(this.a);
+}
+//形式上等价于
+var test = function(){
+    console.log(this.a);
+}
+//实质上等价于
+function fn(){
+    var that = this;
+    var test = function(){
+        console.log(that.a);
+    }
+}
+```
 各式各样的说法都有，乍看下感觉说的差不多。废话不多说，凭着你之前的理解，来先做一套题吧（非严格模式下）。
 ```
 /**
