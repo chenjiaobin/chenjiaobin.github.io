@@ -1,5 +1,5 @@
 ---
-title: Ajax与Commet
+title: Ajax与Comet
 date: 2017-10-11 14:15:00
 tags: 
 - Ajax
