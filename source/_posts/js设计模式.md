@@ -65,3 +65,26 @@ var xiaowan={
  }
 top.init();
 ```
+###  构造函数模式
+构造出特定类型的对象
+```
+//情景：小明和小王的房门有不一样的门的款式，那么我们就可以传递参数给制造商
+function zaomen(huawen){
+  if(!(this instanceof zaomen )){
+    return new zaomen();
+  }
+  this.suo="普通";
+  var _huawen="普通";
+  if(huawen){
+    _huawen=huawen;
+  }
+  this.huawen=_huawen;
+  this.create=function(){
+    return "【锁头】"+this.suo+"【花纹】"+this.huawen;
+ }
+}
+var a=new zaomen();
+console.log(a.create());
+var b=new zaomen();
+console.log(b.create("酷炫的门"));
+```
