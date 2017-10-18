@@ -88,3 +88,84 @@ console.log(a.create());
 var b=new zaomen();
 console.log(b.create("酷炫的门"));
 ```
+### 建造者模式
+将一个复杂的对象与表示分离，简单点讲就是我只要提出我的要求具体的事情怎么做我不要管
+```
+//情景白富美想盖房子，找到包工头，包工头再找工人造房子
+function fanzhi(){
+  this.chufan="";
+  this.ketin="";
+  this.toilet="";
+}
+function baogongtou(){
+  this.gaifangzhi=function(){
+    
+  }
+}
+funtcion gongren(){
+  this._gaichufan=function(){
+				console.log("厨房改好了");
+			}
+			this._gaiketin=function(){
+				console.log("客厅盖好了");
+			}
+			this._gaitoilet=function(){
+				console.log("厕所盖好了");
+			}
+			//交付房子
+			this.jiafangzhi=function(){
+				var newfanzhi=new fanzhi();
+				newfanzhi.chufan="ok";
+				newfanzhi.ketin="ok";
+				newfanzhi.toilet="ok";
+			}
+}
+var gonren_work=new gongren();
+var baogontou_order=new baogongtou();
+baogontou_order.gaifagnzhi(gongren);//包工头发出指令
+
+```
+### 工厂模式
+简单点讲就是解决多个相似的问题，工厂下还有对应的子类，比如一家工厂他下面还有生产衣服的子公司和生产鞋子的子公司，实际开发中我们用的也比较多，比如jquery中的$.ajax(url:'a.php'),a.php就是我这个厂长发出要制造的东西的指令，$.ajax这个方法就是工厂，他负责把这个指令传达给下面的子公司去完成，这里的子公司就是jquery后台代码封装的一些处理方法，也就是做具体的工作
+```
+//简单的工厂
+var factory=function(){
+
+		  }
+		  factory.createXMLHttp=function(){
+		  	var xmlhttp=null;
+		  	if(window.XMLHttpRequest){
+		  		xmlhttp=new XMLHttpRequest();
+		  	}else if(window.ActiveObject){
+		  		xmlhttp=new ActiveObject("Microsoft.XMLHTTP");
+		  	}
+		  	return xmlhttp;
+		  }
+		  var hander=function(){
+		  	var xmlhttp=factory.createXMLHttp();//具体的操作
+		  }
+	}
+ 
+ //复杂的工厂
+ 	var xmlFactory=function(){
+
+	}
+	xmlFactory.prototype=function(){
+  //这个工厂是其他子工厂的总部，负责分工，不负责制造
+		throw new Error('这不是我的工作');
+	}
+	var childFactory=function(){
+		xmlFactory.call(this);
+	}
+	childFactory.prototype=new xmlFactory();//覆盖父厂的方法，这才是我的本职工作
+	childFactory.prototype.constructor=childFactory;
+	childFactory.prototype=function(){
+		// 这里面才是我真正工作的地方
+		if(window.XMLHttpRequest){
+		  		xmlhttp=new XMLHttpRequest();
+		  	}else if(window.ActiveObject){
+		  		xmlhttp=new ActiveObject("Microsoft.XMLHTTP");
+		  	}
+		  	return xmlhttp;
+	}
+```
