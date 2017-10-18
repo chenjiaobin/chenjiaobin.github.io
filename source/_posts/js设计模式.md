@@ -169,3 +169,46 @@ var factory=function(){
 		  	return xmlhttp;
 	}
 ```
+### 代理模式
+简单点讲就是通过中介替我们做事
+```
+//代理模式需要三方
+//买家
+function maijia(){
+  this.namme="小明";
+}
+//中介
+function zhonjie(){}
+zhonjie.prototype.maifan=function(){
+  new fandong(new maijia()).maifan("20万");
+}
+function fandong(){
+  this.maijia_name=maijia.name;
+  this.maifan=function(money){
+  	console.log('收到了来自'+this.maijia_name)
+  }
+}
+(new zhongjie).maifan();
+```
+### 命令模式
+用来对方法调用进行参数化的处理和传送，经过这样处理过的方法调用可以在任何需要的时候执行，比如司令发布一个作战指令给连长，连长发布命令给小分队，然后上级可以先将一二分队先上，三四分队后上这就是参数化的处理
+```
+var lian={}
+    //炮兵
+    lian.paobin=function(pao_num){
+    	console.log(pao_num+"炮"+"开始战斗");
+    }
+    //步兵出动人数
+    lian.bubin=function(bubin_num){
+    	console.log(bubin_num+"人")
+    }
+    //连长接收命令
+    lian.lianzhan=function(minlin){
+    	lian[minlin.type](minlin.num);
+    }
+    //司令发出作战指令
+    lian.lianzhan({
+    	type:"bubin",
+	num:200
+    })
+```
