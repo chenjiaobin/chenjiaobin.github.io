@@ -65,6 +65,77 @@ var xiaowan={
  }
 top.init();
 ```
+```
+//情景：点击按钮创建元素，弹出弹框
+// 实现弹窗
+var createWindow = function(){
+    var div = document.createElement("div");
+    div.innerHTML = "我是弹窗内容";
+    div.style.display = 'none';
+    document.body.appendChild('div');
+    return div;
+};
+document.getElementById("Id").onclick = function(){
+    // 点击后先创建一个div元素
+    var win = createWindow();
+    win.style.display = "block";
+}
+//如上的代码；大家可以看看，有明显的缺点，比如我点击一个元素需要创建一个div，我点击第二个元素又会创建一次div，我们频繁的点击某某元素，他们会频繁的创建div的元素，虽然当我们点击关闭的时候可以移除弹出代码，但是呢我们频繁的创建和删除并不好，特别对于性能会有很大的影响，对DOM频繁的操作会引起重绘等，从而影响性能；因此这是非常不好的习惯；我们现在可以使用单体模式来实现弹窗效果，我们只实例化一次就可以了；如下代码：
+// 实现单体模式弹窗
+var createWindow = (function(){
+    var div;
+    return function(){
+        if(!div) {
+            div = document.createElement("div");
+            div.innerHTML = "我是弹窗内容";
+            div.style.display = 'none';
+            document.body.appendChild(div);
+        }
+        return div;
+    }
+})();
+document.getElementById("Id").onclick = function(){
+    // 点击后先创建一个div元素
+    var win = createWindow();
+    win.style.display = "block";
+}
+//上面的弹窗的代码虽然完成了使用单体模式创建弹窗效果，但是代码并不通用，比如上面是完成弹窗的代码，假如我们以后需要在页面中一个iframe呢？我们是不是需要重新写一套创建iframe的代码呢,所以就得用一套可以复用的代码来实现，代码如下：
+
+//[----------完整版-------------]
+// 创建div
+var createWindow = function(){
+    var div = document.createElement("div");
+    div.innerHTML = "我是弹窗内容";
+    div.style.display = 'none';
+    document.body.appendChild(div);
+    return div;
+};
+// 创建iframe
+var createIframe = function(){
+    var iframe = document.createElement("iframe");
+    document.body.appendChild(iframe);
+    return iframe;
+};
+// 获取实例的封装代码
+var getInstance = function(fn) {
+    var result;
+    return function(){
+        return result || (result = fn.call(this,arguments));
+    }
+};
+// 测试创建div
+var createSingleDiv = getInstance(createWindow);
+document.getElementById("Id").onclick = function(){
+    var win = createSingleDiv();
+    win.style.display = "block";
+};
+// 测试创建iframe
+var createSingleIframe = getInstance(createIframe);
+document.getElementById("Id").onclick = function(){
+    var win = createSingleIframe();
+    win.src = "http://cnblogs.com";
+};
+```
 ###  构造函数模式
 构造出特定类型的对象
 ```
@@ -127,6 +198,7 @@ baogontou_order.gaifagnzhi(gongren);//包工头发出指令
 ```
 ### 工厂模式
 简单点讲就是解决多个相似的问题，工厂下还有对应的子类，比如一家工厂他下面还有生产衣服的子公司和生产鞋子的子公司，实际开发中我们用的也比较多，比如jquery中的$.ajax(url:'a.php'),a.php就是我这个厂长发出要制造的东西的指令，$.ajax这个方法就是工厂，他负责把这个指令传达给下面的子公司去完成，这里的子公司就是jquery后台代码封装的一些处理方法，也就是做具体的工作
+缺点：不能知道对象识别的问题
 ```
 //简单的工厂
 var factory=function(){
@@ -169,6 +241,7 @@ var factory=function(){
 		  	return xmlhttp;
 	}
 ```
+
 ### 代理模式
 简单点讲就是通过中介替我们做事
 ```
