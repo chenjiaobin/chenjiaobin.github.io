@@ -271,7 +271,7 @@ var a=filter();
 a.test();//这样就可以像之前那样访问了
 ```
 ### 职责链模式
-使多个对象同时有机会处理请求，避免发送者和接受者的耦合关系，将这个对象形成一条链，沿着这条链，直到有一个对象处理他为止
+使多个对象有机会同时处理请求，避免发送者和接受者的耦合关系，将这个对象形成一条链，沿着这条链，直到有一个对象处理他为止
 ```
 //给老板一个写代码的任务，老板不会就交给了项目经理，项目经理不会就交给了程序狗
 function laoban(xianmujinli){
@@ -299,3 +299,5 @@ corder.prototype.write=function(php){
 var begin=new laoban(new xianmujinli(new corder()))
 begin.write('php');
 ```
+参考资料：[地址1](https://lenshen.com/2016/03/07/js-design-pattern/#more) | [地址2](http://www.cnblogs.com/tugenhua0707/p/5198407.html)
+作者：[陈焦滨#kevin](https://chenjiaobin.github.io/about/)
