@@ -189,6 +189,25 @@ function fandong(){
   }
 }
 (new zhongjie).maifan();
+
+//例子2
+var naicha=function(name){
+	this.name=name;
+}
+var ceo=function(girl){
+	this.girl=girl;
+	this.sendRing=function(ring){
+	   console.log("我要送个"+ring+"给"+this.girl);
+	}
+}
+var zhuli=function(girl){
+	this.girl=girl;
+	this.sendGift=function(gift){
+		new ceo(this.girl).sendRing(gift);
+	}
+}
+var proxy=new zhuli(new naicha("奶茶妹"));
+proxy.sendGift("钻石");
 ```
 ### 命令模式
 用来对方法调用进行参数化的处理和传送，经过这样处理过的方法调用可以在任何需要的时候执行，比如司令发布一个作战指令给连长，连长发布命令给小分队，然后上级可以先将一二分队先上，三四分队后上这就是参数化的处理
@@ -211,4 +230,72 @@ var lian={}
     	type:"bubin",
 	num:200
     })
+```
+### 观察者模式
+也叫作订阅者模式，定义了一种一对多的关系，多个观察者同时监听某个主题对象，当主题对象发生改变的时候，多个观察者都会收到信息
+
+### 适配器模式
+将一个类（对象）的接口（方法和属性）转化才能成客户希望的另外的一种接口
+```
+//原本是这样写的
+var a={
+	test:unction(){},
+	go:function(){}
+}
+//调用
+a.test()
+//上面这样的写就是一个静态的object了，如果我加入一个对象里面存在同名的属性就会覆盖原有的属性
+//重构成下面这样子的
+function a(){
+  this.test=function(){
+  	console.log("这是新的test");
+  }
+}
+a.prototype.gogo=function(){
+	console.log("这是新的gogo");
+}
+//如果像之前a.test()这样访问的是不行的，所以就得需要一个适配器来解决重构对自己的代码带来的影响
+function filter(){
+	var newA=new a();
+	var a={
+		test:function(){
+		  newA.test();
+		},
+		go:function(){
+		  newA.gogo();
+		}
+	}
+	return a;
+}
+var a=filter();
+a.test();//这样就可以像之前那样访问了
+```
+### 职责链模式
+使多个对象同时有机会处理请求，避免发送者和接受者的耦合关系，将这个对象形成一条链，沿着这条链，直到有一个对象处理他为止
+```
+//给老板一个写代码的任务，老板不会就交给了项目经理，项目经理不会就交给了程序狗
+function laoban(xianmujinli){
+   if(xianmujinli){
+   	this.xianmujinli=xianmujinli;//把项目经理写代码的能力赋予自己
+   }
+}
+laoban.prototype.write=function(php){
+   this.xianmujinli.write(php)
+}
+function xianmujinli(corder){
+  if(corder){
+    this.corder=corder;
+  }
+}
+xianmujinli.prototype.write=function(php){
+  this.corder.write(php);
+}
+function corder(php){
+
+}
+corder.prototype.write=function(php){
+  console.log("cord....."+php);
+}
+var begin=new laoban(new xianmujinli(new corder()))
+begin.write('php');
 ```
