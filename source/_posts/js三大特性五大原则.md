@@ -11,6 +11,7 @@ categories:
 - JS
 - js三大特性五大原则
 ---
+面向对象的概念：这是一种软件开发的一种方式，并不是只要在类中有体现出面向对象的三大特性就是面向对象编程了，还需要满足面向对象中的五大原则
 ## 三大特性
 * 封装
 * 继承
@@ -33,9 +34,30 @@ function Fn(name){
 ```
 ### 继承
 继承就是儿子继承父亲的东西，父亲开放的东西我都能调用，继承有实现继承和接口继承两种，接口继承只承认方法签名，是指使用属性和方法的名称。但是子类必须提供实现的能力，而实现继承就是直接使用基类的方法和属性而无需而外编码的能力。由于函数没有签名，所以ECMAScript无法实现接口继承，而实现继承主要是依靠原型链来实现
+```
+function parent(){}
+function child(){}
+function F(){}
+F.prototype=parent.prototype;
+child.prototype=new F();
+var obj=new child()
+```
 ### 多态
 一个类实例的相同方法在不同情形有不同表现形式。多态机制使具有不同内部结构的对象可以共享相同的外部接口。这意味着，虽然针对不同对象的具体操作不同，但通过一个公共的类，它们（那些操作）可以通过相同的方式予以调用。
-
+```
+//同样的函数，但是传递参数的不同会有不同的表现显示也就是执行不同的算法
+function duotai(){
+  var total=0;
+  if(arguments.length===0){
+    return 0;
+  }else{
+    for(var i=0,ilen=arguments.length;i<ilen;i++){
+      total+=arguments[i];
+    }
+    return total;
+  }
+}
+```
 ## 五大原则
 * 单一职责原则
 * 开放封闭原则
