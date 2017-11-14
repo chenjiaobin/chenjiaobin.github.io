@@ -21,9 +21,11 @@ function xml(){
     xml=new ActicveXObject("Microsoft.XMLHTTP");
   }
   xmlhttp.onreadystatechange=function(){
-    var responseText=JSON.parse(xmlhttp.responseText);
-    //这里返回数据后的处理过程了，我就不写了
-    ........
+    if(xmlhttp.statue==200&&xmlhttp.readyState){
+        var responseText=JSON.parse(xmlhttp.responseText);
+        //这里返回数据后的处理过程了，我就不写了
+        ........
+    }
   }
   xmlhttp.open("GET","http://www.baidu.com",true);//第三个参数表示时候异步，true就是异步
   xmlhttp.send(null);//这里面可以传递一个参数，如果不要作为请求主体发送的数据，就不需要加上这个参数，这个参数需要序列化之后才能传进去，即stringify
@@ -37,9 +39,11 @@ function xml(){
     xml=new ActicveXObject("Microsoft.XMLHTTP");
   }
   xmlhttp.onreadystatechange=function(){
-    var responseText=JSON.parse(xmlhttp.responseText);
-    //这里返回数据后的处理过程了，我就不写了
-    ........
+    if(xmlhttp.statue==200&&xmlhttp.readyState){
+        var responseText=JSON.parse(xmlhttp.responseText);
+        //这里返回数据后的处理过程了，我就不写了
+        ........
+    }
   }
   xmlhttp.open("POST","http://www.baidu.com",true);//第三个参数表示时候异步，true就是异步
   xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");//如果是post请求的话就得加上这一句，因为加上这一句的就可以像表单一样获取到对应的参数，比如在php中就可以通过$_post这个超级全局变量获取到信息，如果不加这一句的话就在再$_post找不到数据
