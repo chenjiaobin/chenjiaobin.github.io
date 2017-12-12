@@ -88,19 +88,38 @@ $.ajax({
 //第二个参数会在执行过程中自动加到/api后面，即/api?action=get&name=chen
 //$.get(url,[data],[callback])
 
-$.get("/api",{action:"get",name:"chen",function(data,textStatus){
+$.get("/api",{action:"get",name:"chen"},function(data,textStatus){
 //如果成功的话textState的值是success,只有成功才能进入这个回调函数
   console.log(data);
-}})
+})
 ```
 ### JQery单个post方式请求
 ```
 //$.post(url,[data],[callback],[type]) type是客户端请求的类型json,xml等
 
-$.post("/api",{action:"get",name:"chen",function(data,textStatus){
+$.post("/api",{action:"get",name:"chen"},function(data,textStatus){
 //如果成功的话textState的值是success,只有成功才能进入这个回调函数
   console.log(data);
-}})
+})
+```
+### Ajax上传文件可以通过FormData
+因为有时候表单提交可能需要提交附件，那么如果用ajax普通方式来提交的话就会出现问题，因为form表单默认的编码方式是`application/x-www-form-urlencoded`,这种编码方式只能编码文本类型的数据，因此Ajax发送请求的时候，会把data序列化成 一个个String类型的键值对,此种传输数据的方式能够满足大部分应用场景，然而当传输的数据里有附件的时候，此序列化机制便是我们的绊脚石。FormData是html5的接口，使用它一行代码便可以拿到整个form表单对象：`var form = new FormData(document.getElementById("form"))`,记住，如果不是用`document.getElementById("form")`获取数据，而是通过`$("#form")[0]`切记切记要在后面加上这个`[0]`,这是我踩过的坑，太狗血了。我们拿着获取到的这个form对象，去赋给Ajax的data，并且阻止它将参数转成成String类型的键值对，此举需要设置processData属性为false，此属性默认为true；同时设置Ajax的编码方式为false（contentType: false），在form表单里已经设置了编码方式，Ajax的编码机制已经不需要，这样我们就可以用Ajax去提交一个form对象，从而解决表单有附件的问题。需要注意的是，务必将Ajax的提交方式，设置为post，get请求只能携带几kb的数据。若是不设置processData为false，去提交带附件的form同样是提交不上去的，它的序列化机制是硬伤。所以提交的时候，只能不使用它的序列化机制。用这个formdata可以不用再form表单的标签上设置`enctype="multipart/form-data"`,话不多说，看代码吧
+```
+var formData=new FormData($("#form")[0]);
+$.ajax({
+  url:'接口地址',
+  type:'post',
+  data:formData,
+  cache:false,
+  processData:false,
+  contentType:false,
+  success:function(data){
+    .....写自己的东西
+    }
+  error:function(xhr,status){
+    console.log(status);
+  }
+})
 ```
 
 ### JSON
@@ -133,7 +152,7 @@ var b=JSON.stringify(a,function(key,value){
   return value;
 })
 console.log(b);
-最后输出的是{name:"chen",age:14}
+最后输出的是{"name":"chen","age":14}
 
 //数组的时候
 var b=JSON.stringify(a,["name"]);
