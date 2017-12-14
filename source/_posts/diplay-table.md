@@ -9,7 +9,6 @@ tags:
 categories:
 - 前端
 - CSS
-- display-table
 ---
 `display:table`和`display:table-cell`属性指让标签元素以表格和表格单元格的形式呈现，类似于table和td标签。目前IE8+以及其他现代浏览器都是支持此属性的，
 但是IE6/7就不行了，需要写对应的hack来解决兼容性的问题<!--more-->
