@@ -7,7 +7,6 @@ tags:
 categories:
 - 前端
 - JS
-- Ajax
 ---
 Ajax的主要作用是实现在不刷新页面的情况下实现局部异步更新数据。<!--more-->
 ### 原生js实现ajax请求代码
