@@ -113,7 +113,59 @@ ko.applyBindings(currentViewModule);//绑定
 })
 </script>
 ```
-
+**多个事件的绑定**
+```
+<b data-bind="html:count,style:{color:styleColor},visible:count()>3"></b>//千万要记住count()要加上括号
+<button data-bind="event:{click:addCount,mouseover:mouseOverEvent,mouseout:mouseOutEvent}">点击我把</button>
+<script>
+$(document).ready(function(){
+    var moduleView=function(){
+    	self.count=ko.observable(0);
+	self.styleColor=ko.observable("black");
+	self.addCount=function(){
+		var currentCount=self.count();
+		var currentCount=currentCount+1;
+		self.count(currentCount);
+	},
+	self.mouseOverEvent=function(){
+		self.styleColor("red");
+	},
+	self.mouseOutEvent=function(){
+		self.styleColor("black");
+	}
+    }
+    var currentModuleView=new modulwView();
+    ko.applyBindings(currentModuleView);
+})
+</script>
+```
+**定义组件**
+关键词：components\register\viewModel\template
+```
+//两种方式引入组件
+<div data-bind="component:'messageList'"></div>//组件名字必须以字符串的方式引入，就是要用引号引入
+<div data-bind="component:{name:'messageList'}"></div>
+<script>
+$(document).ready(function(){
+ko.components.register(
+	'messageList',{
+		viewModel:function(){//这个viewModule的名字不能改，必须是这个
+			var self=this;
+			self.account=ko.observable("tom");
+			self.message=ko.observable("");
+			self.send=function(){
+				self.messages.push({mes:self.message(),num:self.account()});
+				self.message("");
+			};
+			self.messages=ko.observableArray([]);
+		},
+		template:'<input type="text" name="" data-bind="value:message"><button data-bind="click:send">发送</button><ul data-bind="foreach:messages"><li><span data-bind="html:num"></span><span data-bind="html:mes"></span></li></ul>'
+	}
+	);
+	ko.applyBindings();
+})
+</script>
+```
 
 
 
