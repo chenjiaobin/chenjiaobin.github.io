@@ -144,14 +144,14 @@ $(document).ready(function(){
 ```
 //两种方式引入组件
 <div data-bind="component:'messageList'"></div>//组件名字必须以字符串的方式引入，就是要用引号引入
-<div data-bind="component:{name:'messageList'}"></div>
+<div data-bind="component:{name:'messageList',params:'chenjiaobin'}"></div>//可以传递一个params的参数
 <script>
 $(document).ready(function(){
 ko.components.register(
 	'messageList',{
-		viewModel:function(){//这个viewModule的名字不能改，必须是这个
+		viewModel:function(params){//这个viewModule的名字不能改，必须是这个
 			var self=this;
-			self.account=ko.observable("tom");
+			self.account=ko.observable(params!=null?params:"tom");
 			self.message=ko.observable("");
 			self.send=function(){
 				self.messages.push({mes:self.message(),num:self.account()});
@@ -164,6 +164,36 @@ ko.components.register(
 	);
 	ko.applyBindings();
 })
+</script>
+```
+**级联**
+```
+<select data-bind="options:cityWrap,optionsCaption:'--请选择城市--',optionsText:'name',optionsValue:'code',value:cs"></select>
+<select data-bind="options:currentCity,optionsCaption:'--请选择地区--',optionsText:'name',optionsValue:'areaCode',value:dq"></select>
+<script>
+var viewModel=function(){
+	self.cs=ko.observable("");
+	self.dq=ko.observable("");
+	self.cityWrap=ko.observableArray([
+			{name:'北京',code:1001},
+			{name:"上海",code:1002}
+		]);
+	self.area=ko.observableArray([
+			{name:'天安门',areaCode:100010,cityCode:1001},
+			{name:'天坛',areaCode:100011,cityCode:1001},
+			{name:'圆明园',areaCode:100012,cityCode:1001},
+			{name:'上海门',areaCode:100013,cityCode:1002},
+			{name:'上海侨',areaCode:100014,cityCode:1002}
+		]);
+	self.currentCity=ko.computed(function(){
+		//这个是knock的数组过滤的方法
+		return ko.utils.arrayFilter(self.area(),function(item){
+			return item.cityCode==self.cs();
+		})
+	})
+}
+var currentViewModel=new viewModel();
+ko.applyBindings(currentViewModel);
 </script>
 ```
 
