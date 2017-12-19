@@ -53,6 +53,7 @@ ko.applyBindings(currentViewModule);//绑定
 		</tr>
 	</tbody>
 </table>
+//循环遍历输出值还可以同过$data循环输出<tbody data-bind="foreach:arr"><tr data-bind="text:$data"></tr></tbody>
 <button data-bind="click:addOne">添加一个星球</button>
 <script>
 $(document).ready(function(){
@@ -76,6 +77,9 @@ ko.applyBindings(currentViewModule);//绑定
 </script>
 ```
 **自定义输出格式**
+在看代码的时候先看下computed的概念和pureComputed的概念，我就不说概念了，直接以最简单的方式表达
+1. computed：当用户需要显示自己处理后的数据的时候，那就需要用到它了，它是依赖其他observable,就是通过observable定义好的数据，通过computed来处理这个定义好的数据在其他地方显示，就像下面的date，输入年月日后，在下面的总时间显示特定的格式
+2. pureComputed:当用户既要显示自定义后的数据又要通过修改制定后的数据同时也更新observable的数据，那这时候就可以用到pureComputed了，就像下面的pureComputed
 ```
 <input type="text" name="" data-bind="value:year">
 <input type="text" name="" data-bind="value:month">
@@ -89,6 +93,7 @@ $(document).ready(function(){
 self.month=ko.observable("");
 self.day=ko.observable("");
 //注意：computed和pureComputed的区别就是computed不能双向绑定，就是我现在跟在了year或month或day里面的值会改变date的值，但是改变date里面的值不会改变year和month和day的值，但是pureComputed可以做到
+//注意：computed的应用是为了让
 self.date=ko.computed(function(){
   return self.year()+"年"+self.month()+"月"+self.day()+"日"
 })
@@ -117,6 +122,8 @@ ko.applyBindings(currentViewModule);//绑定
 ```
 <b data-bind="html:count,style:{color:styleColor},visible:count()>3"></b>//千万要记住count()要加上括号
 <button data-bind="event:{click:addCount,mouseover:mouseOverEvent,mouseout:mouseOutEvent}">点击我把</button>
+//传递参数bind,第一个参数是默认值就是viewModel对象，另一个缺省值是event指的是当前点击的对象,所以要传递参数是从第二个参数开始
+<button data-bind="event:{click:sure.bind($data,'参数1','参数2')}">确定</button>
 <script>
 $(document).ready(function(){
     var moduleView=function(){
@@ -126,12 +133,15 @@ $(document).ready(function(){
 		var currentCount=self.count();
 		var currentCount=currentCount+1;
 		self.count(currentCount);
-	},
+	};
 	self.mouseOverEvent=function(){
 		self.styleColor("red");
-	},
+	};
 	self.mouseOutEvent=function(){
 		self.styleColor("black");
+	};
+	self.sure=function(params){
+		
 	}
     }
     var currentModuleView=new modulwView();
@@ -213,6 +223,49 @@ var viewModel={
 ko.applyBindings(viewModel,document.getElementById("chenjiaobin"));
 </script>
 最后在id=chenjiaobin元素下显示出来的是“陈焦滨”,在id=kevin下的元素先显示的则是""
+```
+**if和ifnot判断**
+```
+<div>
+<label><input type="checkbox" data-bind="checked: displayMessage" /> Display message</label>
+<div data-bind="if: displayMessage">Here is a message. Astonishing.</div>//if应用
+</div>
+<div>
+<label><input type="checkbox" data-bind="checked: displayMessage" /> Display message</label>
+<div data-bind="ifnot: displayMessage">Here is a message. Astonishing.</div>//ifnot应用
+</div>
+<ul data-bind="foreach: planets">
+    <li>
+        Planet: <b data-bind="text: name"> </b>
+        <div data-bind="if: capital">
+            Capital: <b data-bind="text: capital.cityName"> </b>
+        </div>
+    </li>
+</ul>
+<script>
+var viewModel={
+   displayMessage:ko.observable(true);
+   planets: [
+            { name: 'Mercury', capital: null }, 
+            { name: 'Earth', capital: { cityName: 'Barnsley' } }        
+        ]
+}
+ko.applyBindings(viewModel);
+</script>
+```
+**textInput的使用**
+textInput与value的最大区别就是textInput它是实时更新的，而value需要离开焦点后才会生效
+```
+<div>
+	<input type="text" data-bind="textInput:kk">//textInput的应用
+	<p data-bind="html:kk"></p>
+</div>
+<script>
+var viewModel={
+   kk:ko.observable("打电话");
+}
+ko.applyBindings(viewModel);
+</script>
 ```
 
 
