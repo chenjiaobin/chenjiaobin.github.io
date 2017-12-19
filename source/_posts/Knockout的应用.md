@@ -177,6 +177,7 @@ ko.components.register(
 </script>
 ```
 **级联**
+这个demo主要涉及到的是select选择器,属性options/optionsCaption/optionsText/optionsValue/value
 ```
 <select data-bind="options:cityWrap,optionsCaption:'--请选择城市--',optionsText:'name',optionsValue:'code',value:cs"></select>
 <select data-bind="options:currentCity,optionsCaption:'--请选择地区--',optionsText:'name',optionsValue:'areaCode',value:dq"></select>
@@ -218,7 +219,7 @@ applyBindings有两个参数，applyBindings(currentViewModel,document.getElemen
 </div>
 <script>
 var viewModel={
-   username:ko.observable("陈焦滨");
+   username:ko.observable("陈焦滨")
 }
 ko.applyBindings(viewModel,document.getElementById("chenjiaobin"));
 </script>
@@ -244,7 +245,7 @@ ko.applyBindings(viewModel,document.getElementById("chenjiaobin"));
 </ul>
 <script>
 var viewModel={
-   displayMessage:ko.observable(true);
+   displayMessage:ko.observable(true),
    planets: [
             { name: 'Mercury', capital: null }, 
             { name: 'Earth', capital: { cityName: 'Barnsley' } }        
@@ -262,13 +263,52 @@ textInput与value的最大区别就是textInput它是实时更新的，而value�
 </div>
 <script>
 var viewModel={
-   kk:ko.observable("打电话");
+   kk:ko.observable("打电话")
 }
 ko.applyBindings(viewModel);
 </script>
 ```
-
-
+**hasFocus的使用**
+当值为true时说明获得焦点，反之.
+下面这个demo的效果是刚开始显示一串文字，点击文字后会显示输入框，离开焦点的时候输入框会消失
+```
+<div>
+	<p data-bind="visible:!edit(),text:something,click:changeFocus"></p>
+	<input type="text" name="" data-bind="visible:edit,value:something,hasfocus:edit">//hasfocus的使用
+</div>
+<script>
+var viewModel={
+   	something=ko.observable("来啊，互相伤害啊"),
+	edit=ko.observable(false),
+	changeFocus=function(){
+		this.edit(true);
+	}
+}
+ko.applyBindings(viewModel);
+</script>
+```
+**循环遍历的另一种做法**
+下面这个遍历是knockout默认的语法
+```
+<!-- ko foreach:city -->
+	<p data-bind="html:$data"></p>
+<!-- /ko -->
+```
+**复选框的checkedValue和checked**
+```
+<!--ko foreach:city-->
+	<input id="chk" type="checkbox" data-bind="checkedValue:$data,checked:$root.chkArr">
+	<label for="chk" data-bind="text:$data"></label>
+<!--/ko-->
+<div data-bind="html:chkArr"></div>//点击选择复选框后选择的会在这个标签里面显示
+<script>
+var viewModel={
+   	chkArr:ko.observableArray(),
+	city:['北京','上海','广州']
+}
+ko.applyBindings(viewModel);
+</script>
+```
 
 
 
