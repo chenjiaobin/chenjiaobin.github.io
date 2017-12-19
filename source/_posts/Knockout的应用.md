@@ -196,6 +196,24 @@ var currentViewModel=new viewModel();
 ko.applyBindings(currentViewModel);
 </script>
 ```
+**applyBindings参数**
+applyBindings有两个参数，applyBindings(currentViewModel,document.getElementById("box"))
+第一参数指视图对象，如上面的代码，第二参数是可选的，如果设置了第二个参数，比如box那么在元素设置里的id=box的元素下的后代元素可以使用视图模型里面定义的变量，在其他元素里面就不可以了。eg
+```
+<div class="chenjiaobin">
+   <div data-bind="html:name"></div>
+</div>
+<div class="kevin">
+   <div data-bind="html:name"></div>
+</div>
+<script>
+var viewModel={
+   username:ko.observable("陈焦滨");
+}
+ko.applyBindings(viewModel,document.getElementById("chenjiaobin"));
+</script>
+最后在id=chenjiaobin元素下显示出来的是“陈焦滨”,在id=kevin下的元素先显示的则是""
+```
 
 
 
