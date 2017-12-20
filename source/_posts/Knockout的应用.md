@@ -309,8 +309,49 @@ var viewModel={
 ko.applyBindings(viewModel);
 </script>
 ```
-
-
+**template属性的使用**
+这个可以通过定义模板然后在指定的dom里面插进去
+```
+<div data-bind="template:{name:'mytemplate1',foreach:nobody}"></div>//foreach的使用，循环
+<div data-bind="template:{name:'mytemplate2',data:something}"></div>//data的使用，一个对象数据，不用循环
+<script type="text/html" id="mytemplate1">
+	<h1 data-bind="html:name"></h1>
+	<h2 data-bind="html:age"></h2>
+</script>
+<script type="text/html" id="mytemplate2">
+	<p data-bind="text:name"></p>
+</script>
+<script type="text/javascript">
+	var viewModel=function(){
+		var self=this;
+		self.nobody=ko.observableArray([{name:"啥子呦",age:12},{name:"tony",age:24}]);
+		self.something={name:"啥子呦",age:12}
+	}
+	var currentViewModel=new viewModel();
+	ko.applyBindings(currentViewModel);//激活视图模型
+</script>
+```
+在这里还可以通过别名(as:'')来设置获取值，这个主要是用在多重嵌套循环里面
+```
+<div data-bind="template:{name:'mytemplate1',foreach:nobody,as:'chen'}"></div>//通过as设置别名
+<script type="text/html" id="mytemplate1">
+	<h1 data-bind="html:name"></h1>
+	<h2 data-bind="html:age"></h2>
+	<h3 data-bind="template:{name:'moreTemp',foreach:mm,as:'jiaobin'}"></h3>//嵌套循环里面使用as命名第二个模板
+</script>
+<script type="text/html" id="mytemplate2">
+	<p data-bind="text:jiaobin"></p>
+</script>
+<script type="text/javascript">
+	var viewModel=function(){
+		var self=this;
+		self.nobody=ko.observableArray([{name:"啥子呦",age:12,mm:['打篮球','游泳','打啥']},{name:"tony",age:24,mm:['乒乓球','羽毛球','弹吉他']}]);
+	}
+	var currentViewModel=new viewModel();
+	ko.applyBindings(currentViewModel);//激活视图模型
+</script>
+//这两个模板别名的作用是为了获取数据数据的时候出现混乱，比如，当第二个模板的数据里面也有name这个属性的时候,那么如果我们直接用`data-bind='text:name'`的时候就可能输出的是第二个模板里面的name值，那如果我们设置了别名，我们就可以获取到parent的name值
+```
 
 
 
