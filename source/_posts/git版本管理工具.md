@@ -21,11 +21,13 @@ git作为当今比较流行的版本管理工具，对于我们每个开发人�
 4. 已提交（commited）--git commit -m ""
 5. 已推送（pushed）
 ### 查看更改的内容git diff
-* 当我们修改的文件还没提交到暂存区的时候（git add .）,我们可以通过`git diff 文件名`查看文件前后添加了那些内容，这是查看工作区和暂存区的差异
-* 当我们修改的文件已经提交到暂存区的时候（git commit .）,我们需要通过`git diff --cashed`查看文件前后添加了那些内容，这个是查看暂存区和本地仓库的差异
-* 当我们将修改的文件提交到远程服务器的时候（git push）,我们需要通过`git diff master origin/master`查看差异，这是本地仓库和远程仓库之间的比较
+* 当我们修改的文件还没提交到暂存区的时候（还没执行git add .）,我们可以通过`git diff 文件名`查看文件前后添加了那些内容，这是查看工作区和暂存区的差异
+* 当我们修改的文件已经提交到暂存区的时候（还没执行git commit .）,我们需要通过`git diff --cashed`查看文件前后添加了那些内容，这个是查看暂存区和本地仓库的差异
+* 当我们将修改的文件提交到本地服务器的时候（还没执行git push）,我们需要通过`git diff master origin/master`查看差异，这是本地仓库和远程仓库之间的比较
 ### git的4个阶段的撤销更改
 * 在工作区修改了东西还没有执行`git add .`,这时候我们的修改还没有提交到暂存区，可以通过`git checkout .`或`git reset --hard`进行撤销操作
 * 如果已经执行了`git add .`,未执行`git commit`,那么这时候可以通过`git reset`或`git checkout .`或`git reset --hard`进行撤销操作
 * 如果已经执行了`git commit`,未执行`git push`,那么需要执行`git reset --hard origin/master`,意思就是本地仓库被污染了，那么我就从远程仓库把老的代码取回来
 * 如果执行`git push`,那么需要通过执行`git reset --hard HEAD^`,在强制push到远程仓库就好了`git push -f`
+### 查看日志
+有时候提交代码的commit的信息丢失，需要找到commit的SHA，然后创建一个指定他的分支，因为.git/log文件会每次都记录提交的信息，我们可以通过`git relog`来查看提交的日志信息，如果想要更详细的日志信息，那可以通过执行`git log -g`,确定好丢失好的commit后，就可以在这个commit上创建一个新分支将其回复过来，`git branch newBranch ab1afef`后面这一串字符是日志记录中的hash值，我们只要取得前面几个字符就可以了，如果过在.git/log找不到丢失的commit信息后，那可以通过执行`git fsck --full`该命令会检查仓库的完整性，会显示所有未被其他对象引用的所有对象`git fsck --full`
