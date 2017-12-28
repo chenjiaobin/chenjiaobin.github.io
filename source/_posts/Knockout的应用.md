@@ -256,9 +256,10 @@ ko.applyBindings(viewModel);
 ```
 **textInput的使用**
 textInput与value的最大区别就是textInput它是实时更新的，而value需要离开焦点后才会生效
+uniqueName主要是用来自动生成name值
 ```
 <div>
-	<input type="text" data-bind="textInput:kk">//textInput的应用
+	<input type="text" data-bind="textInput:kk，uniqueName：true">//textInput的应用
 	<p data-bind="html:kk"></p>
 </div>
 <script>
