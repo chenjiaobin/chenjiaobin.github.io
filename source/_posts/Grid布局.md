@@ -25,7 +25,7 @@ Chrom--Firefox--opera--Android--Ios的高版本基本都能兼容，但是还是
 * align-content
 * grid-auto-columns
 * grid-auto-rows
-* grid-flow
+* grid-auto-flow
 * grid
 ### Grid容器属性使用详解
 1. display
@@ -81,10 +81,109 @@ justify-items:start|end|center|stretch(填满)
 //这个是设置行方向的对齐方式
 align-items:start|end|center|stretch
 ```
-
-
-
-
+6. justify-content和align-content
+```
+//如果用像px非弹性单位定义的话，总网格区域大小有可能小于网格容器，这时候你可以设置网格的对齐方式，一般如果想不出现这种情况我们可以通过fr和百分比等方式来避免
+.container{
+display:grid;
+justify-content:start|end|center|space-between|space-around|stretch|space-evenly(网格项间隙相等)
+}
+//下面是行对齐，上面是列对齐
+.container{
+display:grid;
+align-content:start|end|center|space-between|space-around|stretch|space-evenly(网格项间隙相等)
+}
+```
+7. grid-auto-columns和grid-auto-rows
+自动生成隐式网格
+```
+//生成一个2x2的表格
+.container{
+  display:grid;
+  grid-template-columns:60px 60px;
+  grid-template-rows:50px 50px;
+}
+//item-a定义的表格位置是存在的
+.item-a{
+  grid-column:1/2;
+  grid-row:2/3;
+}
+//item-b定义的表格区域是不存在的
+.item-b{
+  grid-column:5/6;//这个网格是不存在的，所以达不到我们的效果，那
+  grid-row:2/3;
+}
+//解决方法：我们可以在.container容器里面添加grid-auto-column:60px;这样就会帮我们隐式创建出这个表格了
+```
+8. grid-auto-flow
+```
+//这个是用来试着网格项下排列方式的
+.cotainer{
+  display:grid;
+  grid-auto-flow:row|column|dense(按先后顺序排列)
+}
+```
+9. grid
+```
+//这个是其他几个容器属性的集合
+.cotainer{
+  display:grid;
+  grid:none | <grid-template-rows> / <grid-template-columns> | <grid-auto-flow> [<grid-auto-rows> [ / <grid-auto-columns>] ]
+}
+```
+接着就是介绍一下项目属性了
+### Grid项目属性
+* grid-column-start
+* grid-column-end
+* grid-row-start
+* grid-row-end
+* grid-column
+* grid-row
+* grid-area
+* justify-self
+* align-self
+### Grid项目属性详解
+1. grid-column-start和grid-column-end和grid-row-start和grid-row-end和grid-column和grid-row
+```
+//则几个都是以网格线来定位的
+.item-a{
+  grid-column-start:1;
+  grid-column-end:2;
+  grid-row-start:1;
+  grid-row-end:2;
+}
+//相当于
+.item-a{
+  grid-column:1/2;
+  grid-row:1/2;
+}
+//span引用
+.item-c{
+  grid-column:1 / span 2; //合并1,2,3个网格
+  grid-row:1 / 2;
+}
+```
+2. grid-ara
+```
+//可以定义区域的名字，结合grid-template-areas使用
+.item-a{
+  grid-area:header;
+}
+//也可以通过他获取一个区域
+// grid-area:<row-start> / <column-start> / <row-end> / <column-end> ;
+.item-b{
+  grid-area:1/2/1/2 ;
+}
+```
+3. align-self和justify-self
+```
+//设置网格项的对齐方式
+start: 网格区域左对齐。
+end: 网格区域右对齐。
+center: 网格区域居中。
+stretch: 网格区域填满
+```
+### [参考博文](https://www.jianshu.com/p/d183265a8dad)
 
 
 
