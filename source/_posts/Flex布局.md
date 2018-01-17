@@ -172,4 +172,4 @@ html,body {
 }
 ```
 ### 参考文章
-[文章1](http://www.runoob.com/w3cnote/flex-grammar.html) | [文章2](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html) | [文章3]（http://www.ruanyifeng.com/blog/2015/07/flex-examples.html）
+[文章1](http://www.runoob.com/w3cnote/flex-grammar.html) | [文章2](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html) | [文章3](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html)
