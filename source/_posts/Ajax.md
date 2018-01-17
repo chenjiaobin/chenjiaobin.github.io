@@ -17,10 +17,10 @@ function xml(){
   if(window.XMLHttpRequest){
     xmlhttp=new XMLHttpRequest();
   }else{
-    xml=new ActicveXObject("Microsoft.XMLHTTP");
+    xmlhttp=new ActicveXObject("Microsoft.XMLHTTP");
   }
   xmlhttp.onreadystatechange=function(){
-    if(xmlhttp.statue==200&&xmlhttp.readyState){
+    if(xmlhttp.statue==200&&xmlhttp.readyState==4){
         var responseText=JSON.parse(xmlhttp.responseText);
         //这里返回数据后的处理过程了，我就不写了
         ........
@@ -67,14 +67,25 @@ $.ajax({
   dataType:"json", //可以死json,xml,string
   async:true, //默认true
   success:function(data){
-  
-  },
-  error:function(xhr){
+    //这里的data不用通过JSON.parse转化了
+  },
+  error:function(xhr,status,errorThrown){
     console.log(xhr.state);//获取到错误码400等
+    console.log(xhr.responseText);
+    console.log(xhr.readyState);//状态1,2,3,4
+    console.log(status);//null, timeout, error, abort, parsererror 
+    console.log(errorThrown);//收到http出错文本，如 Not Found 或 Internal Server Error
   }
   complete:function(xhr,status){
-    //第一个参数是xhr的所有方法，比如complete、abort等
+    //第一个参数
+    console.log(xhr.responseText);//这里返回的值跟success返回的data值是一样的,它还可以xhr.status  xhr.readyState
     //第二个参数表示的是success或者error
+    console.log(status);//success,notmodified,nocontent,error,timeout,abort,parsererror
+    if(status=="timeout"){
+      var xmlhttp=window.XMLHttpRequest?new window.XMLHttpRequest():new ActiveXObject("Microsoft.XMLHttp");
+      xmlhttp.abort();//中断请求
+      $("#a").html("请求超时");
+   }
   },
   beforeSend:function(){
     //这个是最先执行的，如果spiner图片可以在数据为拿到之前显示这个图片
@@ -120,7 +131,42 @@ $.ajax({
   }
 })
 ```
-
+### 上传文件
+情景：一个表单里面有提交文件的表单字段，点击type="file"后选择文件，可以多次点击选择不同的文件，然后先异步上传到服务器的临时目录也就是缓存目录，当点击提交表单的时候提交全部文件
+做法：我们每次点击选择完文件后就触发一个ajax去上传文件到缓存目录，上传成功后我们就动态生成一个input[type="checkbox"],并且将上传文件后返回的id的值赋值到checkout的value上，这样我们提交表单后后台可以通过复选框的这些id去缓存目录找到对应的文件然后上传到服务器的真实目录上。
+```
+<form>
+<input type="file" id="uploadFile">
+</form>
+<script>
+function uploadFile(){
+	var formData=new FormData();
+	formData.append("file",$("#uploadFile")[0].files[0]);
+	$.ajax({
+		url:'../../plugins/servlet/fileupload',
+		type:'post',
+		data:formData,
+		cache:false,
+		processData:false,//阻止它将参数转成string类型的键值对
+		contentType:false,//设置ajax的编码方式为false
+		success:function(data){
+			console.log($("#uploadFile")[0].files[0].name);
+			$(".uploadFile").append("<input type='checkbox' class='fileTemp' checked='checked' name='fileTemp' id="+data+" value="+data+">");
+		},
+		error:function(xhr,status){
+			console.log(status);
+		},
+		complete:function(XMLHttpRequest,xhr){
+    //这里主要是来做进度条的
+			var tempID=XMLHttpRequest.responseText;
+			$(".pregressBar:last").attr("data-temp",tempID);
+		}
+	})
+}
+</script>
+//这样的话每次选择文件都会触发一次ajax，每次都会动态添加一个input[type="checkbox"]
+//我生成这个input也是为了做进度条的，每次点击都会触发这个ajax，还触发了另外一个实时获取进度条的ajax，另外一个ajax是通过setTimeout定时器来不断的发送请求获取进度百分比的，这个我就不在这里写了
+```
 ### JSON
 概念：JavaScript的对象变现法
 优点：读写速度快，简短，javascript内建的方法直接解析stringify和parse
@@ -169,7 +215,7 @@ console.log(b)
 ```
 
 ### JSON和XML的相互转换
-需要下载：jquery,jquery.json2xml.js,jquery.xml2json.js
+需要下载：jquery / jquery.json2xml.js / jquery.xml2json.js
 * xml转换成json对象
 ```
 var str="";
