@@ -1,6 +1,6 @@
 ---
 title: Flex布局
-date: 2017-01-17 16:04:00
+date: 2018-01-17 16:04:00
 tags: 
 - Flex
 - 布局
@@ -171,3 +171,5 @@ html,body {
   flex: 1;
 }
 ```
+### 参考文章
+[文章1](http://www.runoob.com/w3cnote/flex-grammar.html) | [文章2](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html) | [文章3]（http://www.ruanyifeng.com/blog/2015/07/flex-examples.html）
