@@ -9,7 +9,7 @@ categories:
 - 框架
 ---
 ###Express介绍
-这是一款基于node.js的快速、开发、极简的开发开发框架,使用express之前需要在本机安装node.js环境<!--more-->
+这是一款基于node.js的快速、开发、极简的开发开发框架,也算是目前比较流行的基于node.js的开发框架，可以快速搭建一个完整的网站。使用express之前需要在本机安装node.js环境<!--more-->
 ### demo
 ```
 //创建文件夹
@@ -19,7 +19,7 @@ cd demo
 //执行初始化，创建出package.json文件，这个过程需要填写一些参数 
 npm init 
 //安装express依赖,直接安装在本项目需要添加save
-nom install express --save
+npm install express --save
 //全局安装express方式为
 npm install -g express
 //创建一个index.js文件,不一定是index.js，这要看你在init的时候填写的入口文件是什么
@@ -71,3 +71,6 @@ supervisor  ./bin/www
 
 ```
 简单的demo就做好了
+
+### Mock.js
+介绍：Mock.js是一款数据生成器，能是前端独立开发，不依赖后端，也可以编写单元测试
