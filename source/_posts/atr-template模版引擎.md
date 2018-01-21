@@ -132,3 +132,4 @@ $.ajax({
 [art-template基础](http://www.imooc.com/article/20263)
 [art-template语法](http://www.imooc.com/article/20293)
 [art-template实战](http://www.imooc.com/article/20334)
+[art-template完整例子](https://github.com/chenjiaobin/art-template)
