@@ -20,17 +20,17 @@
     "projects": [{
 		"name": "电商网站",
 		"image": "https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/Source/themes/raytaylorism/source/css/images/shop_show.jpg",
-		"tags": ["2016年", "电商网站"],
+		"tags": ["电商网站"],
 		"description": "这个电商网站是模仿天猫和淘宝等大型电商网站的模型，实现了整个购物流程(商品选购--加入购物车--购买)，以及实现了后台多角色管理和商品上传功能！",
 		"link_text": "网站链接",
 		"link": "https://chenjiaobin.github.io/shop/"
 	}, {
-		"name": "你的作品B",
-		"image": "https://d13yacurqjgara.cloudfront.net/users/4094/screenshots/2578885/time-lords-drib_1x.jpg",
-		"description": "你的作品B的简介",
-		"tags": ["Github", "设计"],
-		"link_text": "Github地址",
-		"link": "https://github.com/"
+		"name": "饿了么",
+		"image": "https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/Source/themes/raytaylorism/source/css/images/1516548257.png",
+		"description": "这个作品主要是模仿了饿了么的webApp,实现了简单一些功能，数据是通过easy-mock出来的json数据",
+		"tags": ["vue"],
+		"link_text": "前往网站",
+		"link": "https://chenjiaobin.github.io/elm/#/"
 	}],
 	"reward": [
 	    "https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/Source/themes/raytaylorism/source/zhifubao.jpg",
