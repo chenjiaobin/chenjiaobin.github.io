@@ -9,7 +9,7 @@ categories:
 - 框架
 ---
 ###Express介绍
-这是一款基于node.js的快速、开发、极简的开发开发框架,也算是目前比较流行的基于node.js的开发框架，可以快速搭建一个完整的网站。使用express之前需要在本机安装node.js环境<!--more-->
+这是一款基于node.js的快速、开发、极简的开发开发框架,也算是目前比较流行的基于node.js的开发框架，可以快速搭建一个完整的网站。使用express之前需要在本机安装node.js环境<!--more-->Express 是一个自身功能极简，完全是由路由和中间件构成一个的 web 开发框架：从本质上来说，一个 Express 应用就是在调用各种中间件
 ### demo
 ```
 //创建文件夹
@@ -73,4 +73,45 @@ supervisor  ./bin/www
 简单的demo就做好了
 
 ### Mock.js
-介绍：Mock.js是一款数据生成器，能是前端独立开发，不依赖后端，也可以编写单元测试
+介绍：Mock.js是一款数据生成器，能使前端独立开发，不依赖后端，也可以编写单元测试
+使用前就需要通过npm这个包管理器进行安装
+`npm install mockjs -g`
+对应的api可以通过该网站学习[mockjs](http://mockjs.com/0.1/),这里面也有一个在线数据模版编辑器，能够在线将数据模板调试成功然后复制到我们自己的服务器生成我们的数据
+```
+//如果我们是使用简单的一个html文件来使用mockjs的话，那么我们直接引入mockjs文件，然后调用里面的方法就行了
+<!-- （必选）加载 Mock -->
+<script src="http://mockjs.com/dist/mock.js"></script>
+<script>
+//调用方法
+var data = Mock.mock({
+    'list|1-10': [{
+        'id|+1': 1
+    }]
+});
+$('<pre>').text(JSON.stringify(data, null, 4))
+    .appendTo('body')
+</script>
+```
+如果是node.js搭建的环境，那么我们需要通过下载依赖包
+```
+//引入依赖包
+npm install mockjs -g
+/使用
+var Mock = require('mockjs');
+var data = Mock.mock({
+    'list|1-10': [{
+        'id|+1': 1
+    }]
+});
+console.log(JSON.stringify(data, null, 4))
+```
+### 学习网站
+[mockjs文档](http://mockjs.com/0.1)
+[express文档](http://www.expressjs.com.cn/4x/api.html)
+
+
+
+
+
+
+
