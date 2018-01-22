@@ -26,7 +26,7 @@
 		"link": "https://chenjiaobin.github.io/shop/"
 	}, {
 		"name": "饿了么",
-		"image": "https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/Source/themes/raytaylorism/source/css/images/1516548257.png",
+		"image": "https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/Source/themes/raytaylorism/source/css/images/1516548257.jpg,
 		"description": "这个作品主要是模仿了饿了么的webApp,实现了简单一些功能，数据是通过easy-mock出来的json数据",
 		"tags": [],
 		"link_text": "前往网站",
