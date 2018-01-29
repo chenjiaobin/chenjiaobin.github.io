@@ -295,7 +295,9 @@ func() // print personB
 讲了这么多，可能还是有点绕。总之，想充分理解this的前提，必须得先明白js的执行环境、闭包、作用域、构造函数等基础知识。然后才能得出清晰的结论。
 
 我们平常在学习过程中，难免会更倾向于根据经验去推导结论，或者直接去找一些通俗易懂的描述性语句。然而实际上可能并不是最正确的结果。如果想真正掌握它，我们就应该追本溯源的去研究它的内部机制。
-原文转载自该[地址](http://mp.weixin.qq.com/s/qoHAYft7gdr8h058E-zBJw)
+### 参考网站
+[文章1](https://www.cnblogs.com/xiaohuochai/p/5737876.html)
+[文章2](http://mp.weixin.qq.com/s/qoHAYft7gdr8h058E-zBJw)
 
 
 
