@@ -1,10 +1,10 @@
 ---
-title: 作用域
+title: This
 date: 2017-09-04 10:48:00
 tags: 
 - this
 - 作用域
-- 闭包
+- This
 categories:
 - 前端
 - JS
@@ -38,6 +38,46 @@ function fn(){
     }
 }
 ```
+```
+function foo() {
+    setTimeout(() => {
+        console.log( this.a );
+    },100);
+}
+var obj = {
+    a: 2
+};
+foo.call( obj ); // 2
+//相当于
+function foo() {
+    var that = this; 
+    setTimeout( function(){
+        console.log( that.a );
+    }, 100 );
+}
+var obj = {
+    a: 2
+};
+foo.call( obj ); // 2
+```
+```
+var name="chenjiaobin";
+var obj={
+    name:'hh',
+    test:()=>console.log(this.name);
+}
+//相当于
+var name="chenjiaobin";
+var that=this;
+var obj={
+    name:'hh',
+    test:function(){
+        console.log(that.name);
+    }
+}
+obj.test()//chenjiaobin;
+```
+**结论：**箭头函数本身是没有this的，它的this是依靠外层函数的this决定的，如果没有外层函数就直接指向window
 各式各样的说法都有，乍看下感觉说的差不多。废话不多说，凭着你之前的理解，来先做一套题吧（非严格模式下）。
 ```
 /**
@@ -76,6 +116,33 @@ person1.show3.call(person2)()
 person1.show4()()
 person1.show4().call(person2)
 person1.show4.call(person2)()
+```
+代码解读
+```
+//上面的show2属性代码相当于
+var name = 'window'
+var that=this;
+var person1 = {
+  //show2: () => console.log(this.name);这里因为没有外层函数所以this指向的是window的this，所以在全局里面定义了个that
+  show2:function(){
+    console.log(that.name);
+  }
+}
+```
+```
+//上面的show4属性代码相当于
+var name = 'window'
+var person1 = {
+  // show4: function () {//这里有外层函数，就是这个function，所以在箭头函数的this指向的就是这个function的this值
+  //  return () => console.log(this.name);
+  // }
+  show4:function(){
+    var that=this;
+    return function(){
+        console.log(this.name);
+    }
+  }
+}
 ```
 大致意思就是，有两个对象person1，person2，然后花式调用person1中的四个show方法，预测真正的输出。
 你可以先把自己预测的答案按顺序记在本子上，然后再往下拉看正确答案。
