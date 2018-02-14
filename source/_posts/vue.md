@@ -11,7 +11,7 @@ vue是当前比较火的框架之一，给我们前端开发减轻了很多dom�
 ### vue生命周期是什么
 > vue有一个完整的生命周期，从实例的创建、初始化数据、编译模板、挂载dom模板、渲染-更新-渲染、卸载，通俗点讲就是vue从实例创建开始到销毁的过程，就是我们说的生命周期
 
-[vue生命周期图](https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/Source/themes/raytaylorism/source/css/images/vue.jpg)
+![vue生命周期图](https://raw.githubusercontent.com/chenjiaobin/chenjiaobin.github.io/Source/themes/raytaylorism/source/css/images/vue.jpg)
 
 **beforeCreate**
 > 在实例初始化之后，数据观测(data observer) 和 event/watcher 事件配置之前被调用。
