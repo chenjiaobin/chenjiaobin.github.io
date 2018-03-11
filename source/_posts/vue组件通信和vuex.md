@@ -122,3 +122,138 @@ vue2.0以上取消了之前的dispatch和broadcast的数据通信方式，也取
   }
 </script>
 ```
+4. 兄弟组件传递数据
+```
+//兄弟组件之间的传递我们可能第一时间会想到从子组件传递数据到父组件，再从父组件传递数据到另外一个子组件，但是当我们的项目越来越大的时候，就会发现这种方式会引发很多问题，会变得不好维护
+//所以我们最好使用vuex状态管理或者以下方法，通过实例化一个vue对象，然后通过$emit发射,$on接收，如下
+a. 创建一个js文件，内容如下bus.js
+import vue from 'vue'
+export default new vue();
+b. 子组件1
+<template>
+  <div>
+    <button @click="changeMe">传数据给我兄弟</button>
+  </div>
+</template>
+<script>
+import bus from '../bus.js'
+  export default {
+   data(){
+    return {
+     word:'这是给我兄弟的'
+    }
+   },
+   methods:{
+    changeMe(){
+      bus.$emit('msg',this.word);
+    }
+   }
+  }
+</script>
+c. 组件2
+<template>
+  <div>
+    <p>{{some}}</p>
+  </div>
+</template>
+<script>
+import bus from '../bus.js'
+  export default {
+   data(){
+    return {
+     some:''
+    }
+   },
+   mounted(){
+    var that=this;//切记，这个要加进去，要不在下面是取不到你这个实例里面的some的值的
+    bus.$on("msg",function(val){  //通过$on接收兄弟传过来的值
+     that.some=val;
+    })
+   }
+  }
+</script>
+d. 父组件
+<template>
+ <div>
+  <child-one></child-one>
+  <child-two></child-two>
+ </div>
+</template>
+<script>
+import childOne from '../childOne'
+import childTwo from '../childTwo'
+export default {
+ components:{
+  'child-one':childOne,
+  'child-two':childTwo
+ }
+}
+</script>
+```
+### vuex状态管理
+这个对于大型项目的组件的状态管理是非常方便的
+```
+//创建一个store文件夹，然后分别在这个文件夹下面创建mutation.js,action.js,store.js,getter.js,type.js(这个是用来存变量的)
+//type.js
+export  const  CHANGEDATA='CHANGEDATA';
+export const  INCREMENT="INCREMENT"
+// action.js
+import * as  type from './type'
+export default {
+	changeMydata:({commit})=>{
+		commit(type.CHANGEDATA);
+	}
+}
+//mutation.js
+import getters from "./getter"
+import {CHANGEDATA,INCREMENT} from './type'
+const state={
+	count:0
+}
+const mutations={
+	[CHANGEDATA](state){
+		state.count++;
+	}
+// 相當於
+// CHANGEDATA:(state)=>{
+// 	state.count++
+// }
+}
+export default {
+//注意，下面这个名字必须这样写，不要写错了
+	state,
+	mutations,
+	getters
+}
+//getter.js
+export default {
+	getCount:(state)=>{
+		return  state.count;
+	}
+}
+//store.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+import actions from './actions'
+import mutation from './mutation'
+
+export default new Vuex.Store({
+	modules:{
+		mutation
+	},
+	actions
+})
+//最后在main.js入口文件引入我们的store.js就ok了
+new Vue({
+  el: '#app',
+  store:stores, //注意,这里的store也不要写错了
+  router,
+  components: { App },
+  template: '<App/>'
+})
+```
+以上是个人的一些常用方式，有什么纰漏希望指点
+
