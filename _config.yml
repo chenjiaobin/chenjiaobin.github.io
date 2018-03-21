@@ -84,8 +84,8 @@ deploy:
 
 #搜索插件
  search:
-  path: search.xml
-  field: post
+   path: search.xml
+   field: post
   
 # Extensions
 ## Plugins: http://hexo.io/plugins/
