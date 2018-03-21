@@ -83,9 +83,9 @@ deploy:
   message: success
 
 #搜索插件
-search:
-  path: search.xml
-  field: post
+# search:
+#  path: search.xml
+#  field: post
   
 # Extensions
 ## Plugins: http://hexo.io/plugins/
