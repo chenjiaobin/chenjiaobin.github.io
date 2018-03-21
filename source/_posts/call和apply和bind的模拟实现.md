@@ -5,6 +5,7 @@ tags:
 - call
 - apply
 - bind
+- 函数柯里化
 categories:
 - 前端
 - JS
@@ -149,5 +150,29 @@ console.log(obj.friend);
     return resFn;
  }
  ```
+ ### 函数柯里化
+ > 把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术
+ ```
+ function a(func){
+	var arr=Array.prototype.slice.call(arguments,1);
+	var fn=function(){
+		if(arguments.length===0){
+			return func.apply(this,arr);
+		}else{
+			for(var i=0;i<arguments.length;i++){
+				arr.push(arguments[i]);
+			}
+			return fn;
+		}	
+	}
+	return fn; 
+}
+function add(){
+	return Array.prototype.reduce.call(arguments,function(m,n){return m+n})
+}
+
+a(add,1,2,3,4)(23,1)(3)()//37  这里可以不断连接下去
+ ```
+bind函数的分装也是应用到了这个柯里化的这个技术，它还可以延1. 参数复用；2. 提前返回；3. 延迟计算/运行
 ### 参考文章
 [文章1](https://github.com/mqyqingfeng/Blog/issues/12)
