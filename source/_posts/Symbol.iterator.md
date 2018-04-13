@@ -30,3 +30,86 @@ for (var index in myArray) {
 2.遍历顺序有可能不是按照实际数组的内部顺序
 3.使用for in会遍历数组所有的可枚举属性，包括原型。例如上栗的原型方法method和name属性
 所以for in更适合遍历对象，不要使用for in遍历数组。
+
+那么除了使用for循环，如何更简单的正确的遍历数组达到我们的期望呢（即不遍历method和name），ES6中的for of更胜一筹.
+```
+var myArray=[1,2,4,5,6,7]
+myArray.name="杀马特"
+Array.prototype.method=function(){
+　　console.log(this.length);
+}
+for (var index of myArray) {  //这里的index输出的是value而不是索引
+  console.log(index);
+}
+```
+<font color="#dd0000">注意:for-of目前js实现的对象有array，string，argument以及后面更高级的set，Map</font>
+当我们遍历对象的时候可以使用for-in，不过这种遍历方式会把原型上的属性和方法也给遍历出来，当然我们可以通过`hasOwnProperty`来过滤掉除了实例对象的数据，但是for-of在object对象上暂时没有实现，但是我们可以通过Symbol.iterator给对象添加这个塑性，我们就可以使用for-of了，代码如下
+```
+var p={
+	name:'kevin',
+	age:2,
+	sex:'male'
+}
+Object.defineProperty(p,Symbol.iterator,{
+	enumberable:false,
+	configurable:false,
+	writable:false,
+	value:function(){
+		var _this=this;
+		var nowIndex=-1;
+		var key=Object.keys(_this);
+		return {
+			next:function(){
+				nowIndex++;
+				return {
+					value:_this[key[nowIndex]],
+					done:(nowIndex+1>key.length)
+				}
+			}
+		}
+	}
+})
+}
+//这样的话就可以直接通过for-of来遍历对象了
+for(var i of p){
+  console.log(i)
+}
+输出的是：kevin,2,male
+```
+其实for-of的原理最终也是通过调用p[Symbol.iterator]()这个函数，这个迭代器函数返回一个next函数，for循环会不断调用next
+那么知道原理之后，我们可以自己来调用iterator.next来实现循环
+```
+var students = {}
+students[Symbol.iterator] = function() {
+  let index = 1;
+  return {
+    next() {
+      return {done: index>100, value: index++}
+    }
+  }
+}
+var iterator = students[Symbol.iterator]();
+var s=iterator.next();
+while(!s.done) {
+  console.log(s.value);
+  s=iterator.next();
+}
+```
+上例中使用 iterator.next 和 while 结合实现了 for循环。
+除了使用iterator 之外，我们还可以使用 yield 语法来实现循环，yield相对简单一些，只要通过 yield 语句把值返回即可：
+```
+let students = {
+  [Symbol.iterator]: function*() {
+    for(var i=0;i<=100;i++) {
+      yield i;
+    }
+  }
+}
+for(var s of students) {
+  console.log(s);
+}
+//这个yield其实最后返回的就是iterator函数
+```
+### 参考文档
+[文档1](https://blog.csdn.net/lihongxun945/article/details/48952017)
+[文档2](https://blog.csdn.net/gjc9620/article/details/47681271)
