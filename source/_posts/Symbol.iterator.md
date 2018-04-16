@@ -26,9 +26,9 @@ for (var index in myArray) {
 }
 ```
 使用for in 也可以遍历数组，但是会存在以下问题：
-1.index索引为字符串型数字，不能直接进行几何运算
-2.遍历顺序有可能不是按照实际数组的内部顺序
-3.使用for in会遍历数组所有的可枚举属性，包括原型。例如上栗的原型方法method和name属性
+1. index索引为字符串型数字，不能直接进行几何运算
+2. 遍历顺序有可能不是按照实际数组的内部顺序
+3. 使用for in会遍历数组所有的可枚举属性，包括原型。例如上栗的原型方法method和name属性
 所以for in更适合遍历对象，不要使用for in遍历数组。
 
 那么除了使用for循环，如何更简单的正确的遍历数组达到我们的期望呢（即不遍历method和name），ES6中的for of更胜一筹.
@@ -76,7 +76,7 @@ for(var i of p){
 }
 输出的是：kevin,2,male
 ```
-其实for-of的原理最终也是通过调用p[Symbol.iterator]()这个函数，这个迭代器函数返回一个next函数，for循环会不断调用next
+其实for-of的原理最终也是通过调用p\[Symbol.iterator]()这个函数，这个迭代器函数返回一个next函数，for循环会不断调用next
 那么知道原理之后，我们可以自己来调用iterator.next来实现循环
 ```
 var students = {}
