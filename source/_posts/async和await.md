@@ -11,8 +11,9 @@ categories:
 async和await作为ES7新的API,解决了异步编程过程中的很多问题，在Node.js V7也添加了对这两个API的支持。<!--more-->
 ### async
 如果async函数直接return出来一个普通值`async function a(){return 'hello'}`，执行完a函数后返回的是一个promise对象，也就是说async会把这个直接量通过Promise.resolve封装成一个Promise对象，那么其实我们可以通过then这种方式来接受promise的值，然后在then里面输出来`a().then((v)=>{console.log(v)})`
+<br><font color="#ff0000">注意：async始终返回的是一个Promise对象</font>
 ### await
-await这个则是在async内部调用的一个接口，一般后面接的也是一个返回promise的函数，当然也可以是直接量或者是普通函数，<font color="#FF0000">但是，</font>如果await等到的不是promise的话，那么await表达式的运算结果就是它得到的值，如果等到的是Promise对象的话，那么await就忙起来了，它会阻塞后面的代码的执行，等着Promise的resolve，然后得到resolve的值，这个值就是await的值<font color="#ff0000">(这里的阻塞就是await必须用在async里面的原因了，async函数的调用不会造成阻塞，它内部所有的阻塞都是封装在Promise对象中异步执行)</font>
+await这个则是在async内部调用的一个接口，一般后面接的也是一个返回promise的函数，当然也可以是直接量或者是普通函数，<font color="#FF0000">但是</font>，如果await等到的不是promise的话，那么await表达式的运算结果就是它得到的值，如果等到的是Promise对象的话，那么await就忙起来了，它会阻塞后面的代码的执行，等着Promise的resolve，然后得到resolve的值，这个值就是await的值<font color="#ff0000">(这里的阻塞就是await必须用在async里面的原因了，async函数的调用不会造成阻塞，它内部所有的阻塞都是封装在Promise对象中异步执行)</font>
 await的promise对象有可能运行结果是rejected，所以最好把await命令放在try...catch里面
 ```
 async function test(){
@@ -79,7 +80,7 @@ async function dbFuc(db) {
 
 ```
 ### async/await的优势
-async/await 的优势在于处理 then 链
+async/await 的优势在于处理 then 链，
 单一的 Promise 链并不能发现 async/await 的优势，但是，如果需要处理由多个 Promise 组成的 then 链的时候，优势就能体现出来了（很有意思，Promise 通过 then 链来解决多层回调的问题，现在又用 async/await 来进一步优化它）。
 ```
 //单一的Promise
@@ -174,14 +175,14 @@ var gen = function* () {
   console.log(f2.toString());
 };
 //接下来通过async/await来实现
-var asyncReadFile = async function () {
+var async ReadFile = async function () {
   var f1 = await readFile('/etc/fstab');
   var f2 = await readFile('/etc/shells');
   console.log(f1.toString());
   console.log(f2.toString());
 };
 ```
-<font color="#ff0000">async函数就是将 Generator 函数的星号（*)替换成async，将yield替换成await，仅此而已。</font>
+<font color="#ff0000">async函数就是将 Generator 函数的星号（*)替换成async，将yield替换成await，仅此而已。</font><br>
 **async的优点**
 * 内置执行器：generator需要依靠执行器，所以才有了CO函数库(这个是TJ大神写的一个使用生成器函数来解决异步流程问题，可以看做是生成器函数执行器),但是async有自带执行器
 * 语义更好
