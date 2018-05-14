@@ -52,7 +52,37 @@ console.log("four")
 console.log("five")
 //最后chrome输出的顺序是first five second third four
 ```
+### js执行机制
+js并不是完完全全的一行一行往下执行的，当我们遇到Promise和setTimeout这一类的代码的时候就会发现，因为js里面包含了同步和异步的程序执行方式
+```
+const first = () => (new Promise((resovle,reject)=>{
+    console.log(3);
+    let p = new Promise((resovle, reject)=>{
+         console.log(7);
+        setTimeout(()=>{
+           console.log(5);
+           resovle(6); 
+        },0)
+        resovle(1);
+    }); 
+    resovle(2);
+    p.then((arg)=>{
+        console.log(arg);
+    });
 
+}));
+
+first().then((arg)=>{
+    console.log(arg);
+});
+console.log(4);
+```
+* 第一轮事件循环
+先执行宏任务，主script ，new Promise立即执行，输出【3】，执行p这个new Promise 操作，输出【7】，发现setTimeout，将回调放入下一轮任务队列（Event Queue），p的then，姑且叫做then1，放入微任务队列，发现first的then，叫then2，放入微任务队列。执行console.log(4)，输出【4】,宏任务执行结束。
+再执行微任务，执行then1，输出【1】，执行then2，输出【2】。到此为止，第一轮事件循环结束。开始执行第二轮。
+* 第二轮事件循环
+先执行宏任务里面的，也就是setTimeout的回调，输出【5】。resovle不会生效，因为p这个Promise的状态一旦改变就不会在改变了。 所以最终的输出顺序是3、7、4、1、2、5。
+> 概念：宏任务和微任务
 ### repaint(重绘)和reflow(回流)
 - reflow:这个几乎是无法避免的，即某个子元素样式发生改变，直接影响到了其父元素以及往上追溯很多祖先元素包括兄弟元素，这个时候浏览器要重新渲染这个子元素相关联的所有元素的过程称为**回流**
 - repaint:这个就是改变子元素不影响到父元素的另一种叫法，叫**重绘**
