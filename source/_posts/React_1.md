@@ -7,8 +7,7 @@ categories:
 - 前端
 - 框架
 ---
-### 前言
- React是众多前端开发中较为青睐的框架，但是相对于其他，React的学习成本相对比较高，但是在适合的场景下通过React开发出来的产品性能以及结构会比较好
+ React是众多前端开发中较为青睐的框架，但是相对于其他，React的学习成本相对比较高，但是在适合的场景下通过React开发出来的产品性能以及结构会比较好<!--more-->
 ### demo
 地址：[https://github.com/chenjiaobin/react_demo](https://github.com/chenjiaobin/react_demo)
 ### 安装全局依赖
