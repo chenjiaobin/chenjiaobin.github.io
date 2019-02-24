@@ -36,44 +36,57 @@ foo.bar(); // 1
 2.执行该函数
 3.删除该函数
  ```
- Function.prototype.call2=function(context){
-  var context=context||window;
-  context.fn=this;//通过这个this获取到绑定bind函数的原函数bar,并在这个contest里面新建一个属性fn存放该函数
-  //call还可能传递其他参数过来
-  var arg=[];
-  for(var i=0,len=arguments.lemgth;i>len;i++){
-    arg.push('arguments['+i+']');
-  }
-  var result=eval('context.fn('+arg+')'); //eval会自动调用Array.toString()
-  delete context.fn;
-  return result;
- }
+Function.prototype.myCall = function (context) {
+  var context  = context || window
+  var context.fn = this // 这个this就是我们使用call的时候前面的函数，相当于上面的对象里面的bar函数
+  var arg = [].slice.call(arguments, 1) // 获取context后面的所有参数
+  var result = context.fn(...arg)
+  delete context.fn
+  return result
+}
+// 使用
+var name = 'window'
+var obj = {
+  name: 'chenji'
+}
+function test () {
+ var name = 'test'
+ console.log(this.name)
+}
+test() //outPut  'window'
+test.call(obj, 12) // outPut  'chenji'
  ```
  ### apply
  apply和call很相似，只是传递参数的类型不一样
  ```
- Function.prototype.apply = function (context, arr) {
-    var context = Object(context) || window;
-    context.fn = this;
-
-    var result;
-    if (!arr) {
-        result = context.fn();
-    }
-    else {
-        var args = [];
-        for (var i = 0, len = arr.length; i < len; i++) {
-            args.push('arr[' + i + ']');
-        }
-        result = eval('context.fn(' + args + ')')
-    }
-
-    delete context.fn
-    return result;
+Function.prototype.myApply = function (context) {
+  var context  = context || window
+  var context.fn = this // 这个this就是我们使用call的时候前面的函数，相当于上面的对象里面的bar函数
+  var result
+  // 判断是否有传入第二个参数，apply的第二个参数是数组，有的话就展开
+  if (arguments[1]) {
+     result = context.fn(..arguments[1])
+  } else {
+     result = context.fn()
+  }
+  delete context.fn
+  return result
 }
+// 使用
+var name = 'window'
+var obj = {
+  name: 'chenji'
+}
+function test () {
+ var name = 'test'
+ console.log(this.name)
+}
+test() //outPut  'window'
+test.call(obj, 12) // outPut  'chenji'
  ```
  ### bind
  > bind() 方法会创建一个新函数。当这个新函数被调用时，bind() 的第一个参数将作为它运行时的 this，之后的一序列参数将会在传递的实参前传入作为它的参数。(来自于 MDN )
+ 
  例子
  ```
  var foo = {
@@ -106,12 +119,10 @@ bindFoo('18');
  ```
  这样还不是很全面，我们还可能通过对bind返回的函数进行实例化并传入参数,此时的this指向又发生了变化
  ```
- var value = 2;
-
+var value = 2;
 var foo = {
-    value: 1
+  value: 1
 };
-
 function bar(name, age) {
     this.habit = 'shopping';
     console.log(this.value);
@@ -120,9 +131,7 @@ function bar(name, age) {
 }
 
 bar.prototype.friend = 'kevin';
-
 var bindFoo = bar.bind(foo, 'daisy');
-
 var obj = new bindFoo('18');
 // undefined
 // daisy
@@ -134,44 +143,45 @@ console.log(obj.friend);
  ```
  完整版模拟实现bind
  ```
- Function.prototype.bind=function(){
-    if(typeof this == 'Function'){
-        throw new Error("this can not a function");
+Function.prototype.myBind = function (context) {
+  if(typeof this !== 'Function'){
+    throw new Error("this is a function");
+  }
+  var _this = this
+  var arg = [].slice.call(arguments,1)
+  return function F () {
+    // 因为bind返回了一个函数，所以有可能使用new F(),就如上面的例子，所以需要通过以下这个来判断是否被实例化过，是的话就返回一个原函数的实例化对象来改变this的指向
+    if (this instanceof F) {
+      return new _this(...arg, ...arguments)
     }
-    var self=this;
-    var arr=Array.prototype.slice(arguments,1);
-    var flagFn=function(){}
-    var resFn=function(){
-        var binArr=Array.prototype.slice(arguments);
-        self.apply(this instanceof resFn?this:context,arr.concat(binArr));  //这里是判断bind返回后的函数是否被实例化,是的话就改变this的指向
-    }
-    flagFn.prototype=this.prototype;
-    resFn.prototype=new flagFn();
-    return resFn;
- }
+    return _this.apply(context, arg.concat(...arguments))
+  }
+}
  ```
  ### 函数柯里化
  > 把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术
  ```
  function a(func){
-	var arr=Array.prototype.slice.call(arguments,1);
-	var fn=function(){
-		if(arguments.length===0){
-			return func.apply(this,arr);
-		}else{
-			for(var i=0;i<arguments.length;i++){
-				arr.push(arguments[i]);
-			}
-			return fn;
-		}	
-	}
-	return fn; 
-}
+   // 获取第一次执行时的参数
+   var arr=Array.prototype.slice.call(arguments,1);
+   var fn=function(){
+   	 // 第二次执行才会进来这个函数里面
+         if(arguments.length===0){
+	    return func.apply(this,arr);
+         }else{
+	    for(var i=0;i<arguments.length;i++){
+	       arr.push(arguments[i]);
+	    }
+	  return fn;
+        }	
+      }
+  return fn; 
+ }
 function add(){
-	return Array.prototype.reduce.call(arguments,function(m,n){return m+n})
+  return Array.prototype.reduce.call(arguments,function(m,n){return m+n})
 }
 
-a(add,1,2,3,4)(23,1)(3)()//37  这里可以不断连接下去
+a(add,1,2,3,4)(23,1)(3)()  //37  这里可以不断连接下去
  ```
 bind函数的分装也是应用到了这个柯里化的这个技术，它还可以延1. 参数复用；2. 提前返回；3. 延迟计算/运行
 ### 参考文章
