@@ -1,0 +1,691 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Knockout | 死老头</title>
+    <meta name="author" content="kevin">
+    
+    <meta name="description" content="这是一个js的MVVM(Module-view-ViewModel)框架,这个方便了前端开发者可以不用去写大量的dom交互。它的兼容性也比较好，IE6以上和firfox上应用的都没什么问题。
+使用步骤
+引入jQuery.min.js,引入Knockout.js，Knockout.js下载地址
+定义构">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Knockout">
+    <meta property="og:site_name" content="程序猿那点事">
+
+    
+    <meta property="og:image" content>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="程序猿那点事" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class>
+            <a href="/" class="brand-logo hide-on-med-and-down">程序猿那点事</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww2.sinaimg.cn/small/74990035jw1f1rjkd681bj20rs0rsdhg.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">陈焦滨&amp;kevin</p>
+                        <p class="desc">Web前端/技术宅</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">36 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/CSS/">
+                    CSS <span class="right">8 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/JS/">
+                    JS <span class="right">20 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/HTML5/">
+                    HTML5 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/框架/">
+                    框架 <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/协议/">
+                    协议 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/构建工具/">
+                    构建工具 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/配置/">
+                    配置 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/知识库/">
+                    知识库 <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/移动端/">
+                    移动端 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/前端/">前端</a><a class="breadcrumb" href="/categories/前端/JS/">JS</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Knockout</h1>
+    
+
+
+            </div>
+            <time class="mediumturquoise-link-context" datetime="2017-10-11T14:15:00.000Z"><a href="/2017/10/11/Knockout的应用/">2017-10-11</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/Knockout/" class="chip pink lighten-1">Knockout</a>
+        
+            <a href="/tags/MVVM/" class="chip pink lighten-1">MVVM</a>
+        
+    </div>
+
+
+            <div class="toc mediumturquoise-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#使用步骤"><span class="section table-of-contents-text">使用步骤</span></a></li></ol>
+</div>
+
+
+            <div class="entry mediumturquoise-link-context">
+                <p>这是一个js的MVVM(Module-view-ViewModel)框架,这个方便了前端开发者可以不用去写大量的dom交互。它的兼容性也比较好，IE6以上和firfox上应用的都没什么问题。</p>
+<h3 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h3><ol>
+<li>引入jQuery.min.js,引入Knockout.js，<a href="https://github.com/knockout/knockout/releases" target="_blank" rel="noopener">Knockout.js下载地址</a></li>
+<li>定义构造函数–实例化–绑定，代码如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//构造函数，定义在标签上要绑定的名字和数据</span><br><span class="line">var ViewModule=function()&#123;</span><br><span class="line">  var self=this;</span><br><span class="line">  self.gg=ko.observable(&quot;测试&quot;);</span><br><span class="line">  self.userName=ko.observable();</span><br><span class="line">  self.city=ko.observableArray([&apos;深圳&apos;,&apos;广州&apos;,&apos;上海&apos;]);</span><br><span class="line">  self.hobby=ko.observableArray([&#123;key:&apos;10001&apos;,value:&apos;篮球&apos;&#125;,&#123;key:&apos;10002&apos;,value:&apos;羽毛球&apos;&#125;])</span><br><span class="line">  self.selectedHobby=ko.observable();</span><br><span class="line">&#125;</span><br><span class="line">var currentViewModule=new ViewModule();//实例化</span><br><span class="line">ko.applyBindings(currentViewModule);//绑定</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//html，应用上面js绑定好的数据</span><br><span class="line">&lt;div data-bind=&quot;html:gg&quot;&gt;&lt;/div&gt;//这里面会输出‘测试’</span><br><span class="line">&lt;input type=&quot;text&quot; data-bind=&quot;value:userName&quot;&gt;</span><br><span class="line">&lt;p data-bind=&quot;html:userName&quot;&gt;&lt;/p&gt;//每次在上面的input输完东西后鼠标离开后都会将输入的数据填入到这个p标签里面</span><br><span class="line">&lt;select data-bind=&quot;options:hobby,selectedOptions:selectedHobby,optionsCaption:&apos;--请选择--&apos;,optionsText:&apos;key&apos;,optionsValue:&apos;value&apos;&quot;&gt;&lt;/select&gt;</span><br><span class="line">&lt;b data-bind=&quot;html:selectedHobby&quot;&gt;&lt;/b&gt;</span><br></pre></td></tr></table></figure>
+<p>接下来来点比较好用的</p>
+<p>###<br><strong>点击事件和循环遍历</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;table&gt;</span><br><span class="line">	&lt;thead&gt;</span><br><span class="line">		&lt;tr&gt;</span><br><span class="line">			&lt;th&gt;id&lt;/th&gt;</span><br><span class="line">			&lt;th&gt;name&lt;/th&gt;</span><br><span class="line">			&lt;th&gt;des&lt;/th&gt;</span><br><span class="line">		&lt;/tr&gt;</span><br><span class="line">	&lt;/thead&gt;</span><br><span class="line">	&lt;tbody data-bind=&quot;foreach:arr&quot;&gt;</span><br><span class="line">		&lt;tr&gt;</span><br><span class="line">			&lt;td data-bind=&quot;html:$index&quot;&gt;&lt;/td&gt;//$index是konckout自带的参数，自动计算个数进行0,1,2,3...</span><br><span class="line">			&lt;td data-bind=&quot;html:(name==&apos;月球&apos;?&apos;这是嫦娥的家&apos;:name)&quot;&gt;&lt;/td&gt;//还可以进行条件判断</span><br><span class="line">			&lt;td data-bind=&quot;html:des&quot;&gt;&lt;/td&gt;</span><br><span class="line">		&lt;/tr&gt;</span><br><span class="line">	&lt;/tbody&gt;</span><br><span class="line">&lt;/table&gt;</span><br><span class="line">//循环遍历输出值还可以同过$data循环输出&lt;tbody data-bind=&quot;foreach:arr&quot;&gt;&lt;tr data-bind=&quot;text:$data&quot;&gt;&lt;/tr&gt;&lt;/tbody&gt;</span><br><span class="line">&lt;button data-bind=&quot;click:addOne&quot;&gt;添加一个星球&lt;/button&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">$(document).ready(function()&#123;</span><br><span class="line">var arr=[</span><br><span class="line">			&#123;id:1,name:&quot;火星&quot;,des:&quot;火星探索&quot;&#125;,</span><br><span class="line">			&#123;id:2,name:&quot;月球&quot;,des:&quot;月球探索&quot;&#125;,</span><br><span class="line">			&#123;id:3,name:&quot;地球&quot;,des:&quot;人类居住的地方&quot;&#125;</span><br><span class="line">		]</span><br><span class="line">    </span><br><span class="line">  var ViewModule=function()&#123;</span><br><span class="line">  var self=this;</span><br><span class="line">  self.arr=ko.observableArray(arr);</span><br><span class="line">  self.addOne=function()&#123;</span><br><span class="line">     self.arr.push(&#123;id:&quot;4&quot;,name:&quot;接口的&quot;,des:&quot;d快递费&quot;&#125;);</span><br><span class="line">     return false;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var currentViewModule=new ViewModule();//实例化</span><br><span class="line">ko.applyBindings(currentViewModule);//绑定</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>自定义输出格式</strong><br>在看代码的时候先看下computed的概念和pureComputed的概念，我就不说概念了，直接以最简单的方式表达</p>
+<ol>
+<li>computed：当用户需要显示自己处理后的数据的时候，那就需要用到它了，它是依赖其他observable,就是通过observable定义好的数据，通过computed来处理这个定义好的数据在其他地方显示，就像下面的date，输入年月日后，在下面的总时间显示特定的格式</li>
+<li>pureComputed:当用户既要显示自定义后的数据又要通过修改制定后的数据同时也更新observable的数据，那这时候就可以用到pureComputed了，就像下面的pureComputed<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=&quot;text&quot; name=&quot;&quot; data-bind=&quot;value:year&quot;&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; name=&quot;&quot; data-bind=&quot;value:month&quot;&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; name=&quot;&quot; data-bind=&quot;value:day&quot;&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; name=&quot;&quot; data-bind=&quot;value:date2&quot;&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">$(document).ready(function()&#123;</span><br><span class="line">  var ViewModule=function()&#123;</span><br><span class="line">  var self=this;</span><br><span class="line"> self.year=ko.observable(&quot;&quot;);</span><br><span class="line">self.month=ko.observable(&quot;&quot;);</span><br><span class="line">self.day=ko.observable(&quot;&quot;);</span><br><span class="line">//注意：computed和pureComputed的区别就是computed不能双向绑定，就是我现在跟在了year或month或day里面的值会改变date的值，但是改变date里面的值不会改变year和month和day的值，但是pureComputed可以做到</span><br><span class="line">//注意：computed的应用是为了让</span><br><span class="line">self.date=ko.computed(function()&#123;</span><br><span class="line">  return self.year()+&quot;年&quot;+self.month()+&quot;月&quot;+self.day()+&quot;日&quot;</span><br><span class="line">&#125;)</span><br><span class="line">//下面这个比较厉害点</span><br><span class="line">self.date2=ko.pureComputed(&#123;</span><br><span class="line">  write:function(value)&#123;</span><br><span class="line">    var y=value.indexOf(&quot;年&quot;);</span><br><span class="line">    var m=value.indexOf(&quot;月&quot;);</span><br><span class="line">    var d=value.indexOf(&quot;日&quot;);</span><br><span class="line">    self.year(value.substring(0,y));</span><br><span class="line">    self.month(value.substring(y+1,m));</span><br><span class="line">    self.day(value.substring(m+1,d));</span><br><span class="line">  &#125;,</span><br><span class="line">  read:function()&#123;</span><br><span class="line">    return self.year()+&quot;年&quot;+self.month()+&quot;月&quot;+self.day()+&quot;日&quot;;</span><br><span class="line">  &#125;,</span><br><span class="line">  owner:self		</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line">var currentViewModule=new ViewModule();//实例化</span><br><span class="line">ko.applyBindings(currentViewModule);//绑定</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>多个事件的绑定</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;b data-bind=&quot;html:count,style:&#123;color:styleColor&#125;,visible:count()&gt;3&quot;&gt;&lt;/b&gt;//千万要记住count()要加上括号</span><br><span class="line">&lt;button data-bind=&quot;event:&#123;click:addCount,mouseover:mouseOverEvent,mouseout:mouseOutEvent&#125;&quot;&gt;点击我把&lt;/button&gt;</span><br><span class="line">//传递参数bind,第一个参数是默认值就是viewModel对象，另一个缺省值是event指的是当前点击的对象,所以要传递参数是从第二个参数开始</span><br><span class="line">&lt;button data-bind=&quot;event:&#123;click:sure.bind($data,&apos;参数1&apos;,&apos;参数2&apos;)&#125;&quot;&gt;确定&lt;/button&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">$(document).ready(function()&#123;</span><br><span class="line">    var moduleView=function()&#123;</span><br><span class="line">    	self.count=ko.observable(0);</span><br><span class="line">	self.styleColor=ko.observable(&quot;black&quot;);</span><br><span class="line">	self.addCount=function()&#123;</span><br><span class="line">		var currentCount=self.count();</span><br><span class="line">		var currentCount=currentCount+1;</span><br><span class="line">		self.count(currentCount);</span><br><span class="line">	&#125;;</span><br><span class="line">	self.mouseOverEvent=function()&#123;</span><br><span class="line">		self.styleColor(&quot;red&quot;);</span><br><span class="line">	&#125;;</span><br><span class="line">	self.mouseOutEvent=function()&#123;</span><br><span class="line">		self.styleColor(&quot;black&quot;);</span><br><span class="line">	&#125;;</span><br><span class="line">	self.sure=function(params)&#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    var currentModuleView=new modulwView();</span><br><span class="line">    ko.applyBindings(currentModuleView);</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>定义组件</strong><br>关键词：components\register\viewModel\template<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//两种方式引入组件</span><br><span class="line">&lt;div data-bind=&quot;component:&apos;messageList&apos;&quot;&gt;&lt;/div&gt;//组件名字必须以字符串的方式引入，就是要用引号引入</span><br><span class="line">&lt;div data-bind=&quot;component:&#123;name:&apos;messageList&apos;,params:&apos;chenjiaobin&apos;&#125;&quot;&gt;&lt;/div&gt;//可以传递一个params的参数</span><br><span class="line">&lt;script&gt;</span><br><span class="line">$(document).ready(function()&#123;</span><br><span class="line">ko.components.register(</span><br><span class="line">	&apos;messageList&apos;,&#123;</span><br><span class="line">		viewModel:function(params)&#123;//这个viewModule的名字不能改，必须是这个</span><br><span class="line">			var self=this;</span><br><span class="line">			self.account=ko.observable(params!=null?params:&quot;tom&quot;);</span><br><span class="line">			self.message=ko.observable(&quot;&quot;);</span><br><span class="line">			self.send=function()&#123;</span><br><span class="line">				self.messages.push(&#123;mes:self.message(),num:self.account()&#125;);</span><br><span class="line">				self.message(&quot;&quot;);</span><br><span class="line">			&#125;;</span><br><span class="line">			self.messages=ko.observableArray([]);</span><br><span class="line">		&#125;,</span><br><span class="line">		template:&apos;&lt;input type=&quot;text&quot; name=&quot;&quot; data-bind=&quot;value:message&quot;&gt;&lt;button data-bind=&quot;click:send&quot;&gt;发送&lt;/button&gt;&lt;ul data-bind=&quot;foreach:messages&quot;&gt;&lt;li&gt;&lt;span data-bind=&quot;html:num&quot;&gt;&lt;/span&gt;&lt;span data-bind=&quot;html:mes&quot;&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&apos;</span><br><span class="line">	&#125;</span><br><span class="line">	);</span><br><span class="line">	ko.applyBindings();</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>级联</strong><br>这个demo主要涉及到的是select选择器,属性options/optionsCaption/optionsText/optionsValue/value<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;select data-bind=&quot;options:cityWrap,optionsCaption:&apos;--请选择城市--&apos;,optionsText:&apos;name&apos;,optionsValue:&apos;code&apos;,value:cs&quot;&gt;&lt;/select&gt;</span><br><span class="line">&lt;select data-bind=&quot;options:currentCity,optionsCaption:&apos;--请选择地区--&apos;,optionsText:&apos;name&apos;,optionsValue:&apos;areaCode&apos;,value:dq&quot;&gt;&lt;/select&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var viewModel=function()&#123;</span><br><span class="line">	self.cs=ko.observable(&quot;&quot;);</span><br><span class="line">	self.dq=ko.observable(&quot;&quot;);</span><br><span class="line">	self.cityWrap=ko.observableArray([</span><br><span class="line">			&#123;name:&apos;北京&apos;,code:1001&#125;,</span><br><span class="line">			&#123;name:&quot;上海&quot;,code:1002&#125;</span><br><span class="line">		]);</span><br><span class="line">	self.area=ko.observableArray([</span><br><span class="line">			&#123;name:&apos;天安门&apos;,areaCode:100010,cityCode:1001&#125;,</span><br><span class="line">			&#123;name:&apos;天坛&apos;,areaCode:100011,cityCode:1001&#125;,</span><br><span class="line">			&#123;name:&apos;圆明园&apos;,areaCode:100012,cityCode:1001&#125;,</span><br><span class="line">			&#123;name:&apos;上海门&apos;,areaCode:100013,cityCode:1002&#125;,</span><br><span class="line">			&#123;name:&apos;上海侨&apos;,areaCode:100014,cityCode:1002&#125;</span><br><span class="line">		]);</span><br><span class="line">	self.currentCity=ko.computed(function()&#123;</span><br><span class="line">		//这个是knock的数组过滤的方法</span><br><span class="line">		return ko.utils.arrayFilter(self.area(),function(item)&#123;</span><br><span class="line">			return item.cityCode==self.cs();</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line">var currentViewModel=new viewModel();</span><br><span class="line">ko.applyBindings(currentViewModel);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>applyBindings参数</strong><br>applyBindings有两个参数，applyBindings(currentViewModel,document.getElementById(“box”))<br>第一参数指视图对象，如上面的代码，第二参数是可选的，如果设置了第二个参数，比如box那么在元素设置里的id=box的元素下的后代元素可以使用视图模型里面定义的变量，在其他元素里面就不可以了。eg<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;chenjiaobin&quot;&gt;</span><br><span class="line">   &lt;div data-bind=&quot;html:name&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;kevin&quot;&gt;</span><br><span class="line">   &lt;div data-bind=&quot;html:name&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var viewModel=&#123;</span><br><span class="line">   username:ko.observable(&quot;陈焦滨&quot;)</span><br><span class="line">&#125;</span><br><span class="line">ko.applyBindings(viewModel,document.getElementById(&quot;chenjiaobin&quot;));</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">最后在id=chenjiaobin元素下显示出来的是“陈焦滨”,在id=kevin下的元素先显示的则是&quot;&quot;</span><br></pre></td></tr></table></figure></p>
+<p><strong>if和ifnot判断</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">&lt;label&gt;&lt;input type=&quot;checkbox&quot; data-bind=&quot;checked: displayMessage&quot; /&gt; Display message&lt;/label&gt;</span><br><span class="line">&lt;div data-bind=&quot;if: displayMessage&quot;&gt;Here is a message. Astonishing.&lt;/div&gt;//if应用</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">&lt;label&gt;&lt;input type=&quot;checkbox&quot; data-bind=&quot;checked: displayMessage&quot; /&gt; Display message&lt;/label&gt;</span><br><span class="line">&lt;div data-bind=&quot;ifnot: displayMessage&quot;&gt;Here is a message. Astonishing.&lt;/div&gt;//ifnot应用</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;ul data-bind=&quot;foreach: planets&quot;&gt;</span><br><span class="line">    &lt;li&gt;</span><br><span class="line">        Planet: &lt;b data-bind=&quot;text: name&quot;&gt; &lt;/b&gt;</span><br><span class="line">        &lt;div data-bind=&quot;if: capital&quot;&gt;</span><br><span class="line">            Capital: &lt;b data-bind=&quot;text: capital.cityName&quot;&gt; &lt;/b&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var viewModel=&#123;</span><br><span class="line">   displayMessage:ko.observable(true),</span><br><span class="line">   planets: [</span><br><span class="line">            &#123; name: &apos;Mercury&apos;, capital: null &#125;, </span><br><span class="line">            &#123; name: &apos;Earth&apos;, capital: &#123; cityName: &apos;Barnsley&apos; &#125; &#125;        </span><br><span class="line">        ]</span><br><span class="line">&#125;</span><br><span class="line">ko.applyBindings(viewModel);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>textInput的使用</strong><br>textInput与value的最大区别就是textInput它是实时更新的，而value需要离开焦点后才会生效<br>uniqueName主要是用来自动生成name值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;input type=&quot;text&quot; data-bind=&quot;textInput:kk，uniqueName：true&quot;&gt;//textInput的应用</span><br><span class="line">	&lt;p data-bind=&quot;html:kk&quot;&gt;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var viewModel=&#123;</span><br><span class="line">   kk:ko.observable(&quot;打电话&quot;)</span><br><span class="line">&#125;</span><br><span class="line">ko.applyBindings(viewModel);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>hasFocus的使用</strong><br>当值为true时说明获得焦点，反之.<br>下面这个demo的效果是刚开始显示一串文字，点击文字后会显示输入框，离开焦点的时候输入框会消失<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;p data-bind=&quot;visible:!edit(),text:something,click:changeFocus&quot;&gt;&lt;/p&gt;</span><br><span class="line">	&lt;input type=&quot;text&quot; name=&quot;&quot; data-bind=&quot;visible:edit,value:something,hasfocus:edit&quot;&gt;//hasfocus的使用</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var viewModel=&#123;</span><br><span class="line">   	something=ko.observable(&quot;来啊，互相伤害啊&quot;),</span><br><span class="line">	edit=ko.observable(false),</span><br><span class="line">	changeFocus=function()&#123;</span><br><span class="line">		this.edit(true);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">ko.applyBindings(viewModel);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>循环遍历的另一种做法</strong><br>下面这个遍历是knockout默认的语法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- ko foreach:city --&gt;</span><br><span class="line">	&lt;p data-bind=&quot;html:$data&quot;&gt;&lt;/p&gt;</span><br><span class="line">&lt;!-- /ko --&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>复选框的checkedValue和checked</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--ko foreach:city--&gt;</span><br><span class="line">	&lt;input id=&quot;chk&quot; type=&quot;checkbox&quot; data-bind=&quot;checkedValue:$data,checked:$root.chkArr&quot;&gt;</span><br><span class="line">	&lt;label for=&quot;chk&quot; data-bind=&quot;text:$data&quot;&gt;&lt;/label&gt;</span><br><span class="line">&lt;!--/ko--&gt;</span><br><span class="line">&lt;div data-bind=&quot;html:chkArr&quot;&gt;&lt;/div&gt;//点击选择复选框后选择的会在这个标签里面显示</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var viewModel=&#123;</span><br><span class="line">   	chkArr:ko.observableArray(),</span><br><span class="line">	city:[&apos;北京&apos;,&apos;上海&apos;,&apos;广州&apos;]</span><br><span class="line">&#125;</span><br><span class="line">ko.applyBindings(viewModel);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>template属性的使用</strong><br>这个可以通过定义模板然后在指定的dom里面插进去<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;div data-bind=&quot;template:&#123;name:&apos;mytemplate1&apos;,foreach:nobody&#125;&quot;&gt;&lt;/div&gt;//foreach的使用，循环</span><br><span class="line">&lt;div data-bind=&quot;template:&#123;name:&apos;mytemplate2&apos;,data:something&#125;&quot;&gt;&lt;/div&gt;//data的使用，一个对象数据，不用循环</span><br><span class="line">&lt;script type=&quot;text/html&quot; id=&quot;mytemplate1&quot;&gt;</span><br><span class="line">	&lt;h1 data-bind=&quot;html:name&quot;&gt;&lt;/h1&gt;</span><br><span class="line">	&lt;h2 data-bind=&quot;html:age&quot;&gt;&lt;/h2&gt;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/html&quot; id=&quot;mytemplate2&quot;&gt;</span><br><span class="line">	&lt;p data-bind=&quot;text:name&quot;&gt;&lt;/p&gt;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">	var viewModel=function()&#123;</span><br><span class="line">		var self=this;</span><br><span class="line">		self.nobody=ko.observableArray([&#123;name:&quot;啥子呦&quot;,age:12&#125;,&#123;name:&quot;tony&quot;,age:24&#125;]);</span><br><span class="line">		self.something=&#123;name:&quot;啥子呦&quot;,age:12&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	var currentViewModel=new viewModel();</span><br><span class="line">	ko.applyBindings(currentViewModel);//激活视图模型</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在这里还可以通过别名(as:’’)来设置获取值，这个主要是用在多重嵌套循环里面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;div data-bind=&quot;template:&#123;name:&apos;mytemplate1&apos;,foreach:nobody,as:&apos;chen&apos;&#125;&quot;&gt;&lt;/div&gt;//通过as设置别名</span><br><span class="line">&lt;script type=&quot;text/html&quot; id=&quot;mytemplate1&quot;&gt;</span><br><span class="line">	&lt;h1 data-bind=&quot;html:name&quot;&gt;&lt;/h1&gt;</span><br><span class="line">	&lt;h2 data-bind=&quot;html:age&quot;&gt;&lt;/h2&gt;</span><br><span class="line">	&lt;h3 data-bind=&quot;template:&#123;name:&apos;moreTemp&apos;,foreach:mm,as:&apos;jiaobin&apos;&#125;&quot;&gt;&lt;/h3&gt;//嵌套循环里面使用as命名第二个模板</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/html&quot; id=&quot;mytemplate2&quot;&gt;</span><br><span class="line">	&lt;p data-bind=&quot;text:jiaobin&quot;&gt;&lt;/p&gt;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">	var viewModel=function()&#123;</span><br><span class="line">		var self=this;</span><br><span class="line">		self.nobody=ko.observableArray([&#123;name:&quot;啥子呦&quot;,age:12,mm:[&apos;打篮球&apos;,&apos;游泳&apos;,&apos;打啥&apos;]&#125;,&#123;name:&quot;tony&quot;,age:24,mm:[&apos;乒乓球&apos;,&apos;羽毛球&apos;,&apos;弹吉他&apos;]&#125;]);</span><br><span class="line">	&#125;</span><br><span class="line">	var currentViewModel=new viewModel();</span><br><span class="line">	ko.applyBindings(currentViewModel);//激活视图模型</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">//这两个模板别名的作用是为了获取数据数据的时候出现混乱，比如，当第二个模板的数据里面也有name这个属性的时候,那么如果我们直接用`data-bind=&apos;text:name&apos;`的时候就可能输出的是第二个模板里面的name值，那如果我们设置了别名，我们就可以获取到parent的name值</span><br></pre></td></tr></table></figure></p>
+
+                
+<p class="mediumturquoise-link-context">
+    <a href="/2017/10/11/Ajax/" rel="next" title="Ajax与Comet">
+    上一篇：Ajax与Comet
+  </a>
+</p>
+
+
+
+<p class="mediumturquoise-link-context">
+    <a href="/2017/09/25/shapes元素/" rel="next" title="shape-outside元素实现iphone刘海效果">
+    下一篇：shape-outside元素实现iphone刘海效果
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large mediumturquoise">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://weibo.com/u/2956405011?is_all=1" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaobin" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="https://chenjiaobin.github.io/" target="_blank">作者的技术博客</a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaobin" target="_blank">Github地址</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright mediumturquoise-link-context">
+        <div class="container" style="text-align:center">
+            kevin© 2017 chenjiaobin.github.io, All rights reserved.
+           <!-- <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>-->
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('mediumturquoise lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-reading, .menu-about').append('<span class="new badge mediumturquoise"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword mediumturquoise lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword mediumturquoise lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,710 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>Ajax与Comet | 死老头</title>
+    <meta name="author" content="kevin">
+    
+    <meta name="description" content="Ajax的主要作用是实现在不刷新页面的情况下实现局部异步更新数据。">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="Ajax与Comet">
+    <meta property="og:site_name" content="程序猿那点事">
+
+    
+    <meta property="og:image" content>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="程序猿那点事" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class>
+            <a href="/" class="brand-logo hide-on-med-and-down">程序猿那点事</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww2.sinaimg.cn/small/74990035jw1f1rjkd681bj20rs0rsdhg.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">陈焦滨&amp;kevin</p>
+                        <p class="desc">Web前端/技术宅</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">36 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/CSS/">
+                    CSS <span class="right">8 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/JS/">
+                    JS <span class="right">20 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/HTML5/">
+                    HTML5 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/框架/">
+                    框架 <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/协议/">
+                    协议 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/构建工具/">
+                    构建工具 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/配置/">
+                    配置 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/知识库/">
+                    知识库 <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/移动端/">
+                    移动端 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/前端/">前端</a><a class="breadcrumb" href="/categories/前端/JS/">JS</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>Ajax与Comet</h1>
+    
+
+
+            </div>
+            <time class="mediumturquoise-link-context" datetime="2017-10-11T14:15:00.000Z"><a href="/2017/10/11/Ajax/">2017-10-11</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/Ajax/" class="chip pink lighten-1">Ajax</a>
+        
+            <a href="/tags/comet/" class="chip pink lighten-1">comet</a>
+        
+    </div>
+
+
+            <div class="toc mediumturquoise-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#原生js实现ajax请求代码"><span class="section table-of-contents-text">原生js实现ajax请求代码</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#readyState各状态代表什么"><span class="section table-of-contents-text">readyState各状态代表什么</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#JQuery实现ajax请求"><span class="section table-of-contents-text">JQuery实现ajax请求</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#JQuery的get请求"><span class="section table-of-contents-text">JQuery的get请求</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#JQery单个post方式请求"><span class="section table-of-contents-text">JQery单个post方式请求</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#Ajax上传文件可以通过FormData"><span class="section table-of-contents-text">Ajax上传文件可以通过FormData</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#上传文件"><span class="section table-of-contents-text">上传文件</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#JSON"><span class="section table-of-contents-text">JSON</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#JSON和XML的相互转换"><span class="section table-of-contents-text">JSON和XML的相互转换</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#GeoJSON和TopoJSON"><span class="section table-of-contents-text">GeoJSON和TopoJSON</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#跨域"><span class="section table-of-contents-text">跨域</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#解决跨域"><span class="section table-of-contents-text">解决跨域</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#Comet"><span class="section table-of-contents-text">Comet</span></a></li></ol>
+</div>
+
+
+            <div class="entry mediumturquoise-link-context">
+                <p>Ajax的主要作用是实现在不刷新页面的情况下实现局部异步更新数据。<a id="more"></a></p>
+<h3 id="原生js实现ajax请求代码"><a href="#原生js实现ajax请求代码" class="headerlink" title="原生js实现ajax请求代码"></a>原生js实现ajax请求代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">//get请求方式</span><br><span class="line">var xmlhttp</span><br><span class="line">function xml()&#123;</span><br><span class="line">  if(window.XMLHttpRequest)&#123;</span><br><span class="line">    xmlhttp=new XMLHttpRequest();</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    xmlhttp=new ActicveXObject(&quot;Microsoft.XMLHTTP&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  xmlhttp.onreadystatechange=function()&#123;</span><br><span class="line">    if(xmlhttp.statue==200&amp;&amp;xmlhttp.readyState==4)&#123;</span><br><span class="line">        var responseText=JSON.parse(xmlhttp.responseText);</span><br><span class="line">        //这里返回数据后的处理过程了，我就不写了</span><br><span class="line">        ........</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  xmlhttp.open(&quot;GET&quot;,&quot;http://www.baidu.com&quot;,true);//第三个参数表示时候异步，true就是异步</span><br><span class="line">  xmlhttp.send(null);//这里面可以传递一个参数，如果不要作为请求主体发送的数据，就不需要加上这个参数，这个参数需要序列化之后才能传进去，即stringify</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//POST请求</span><br><span class="line">function xml()&#123;</span><br><span class="line">  if(window.XMLHttpRequest)&#123;</span><br><span class="line">    xmlhttp=new XMLHttpRequest();</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    xml=new ActicveXObject(&quot;Microsoft.XMLHTTP&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  xmlhttp.onreadystatechange=function()&#123;</span><br><span class="line">    if(xmlhttp.statue==200&amp;&amp;xmlhttp.readyState)&#123;</span><br><span class="line">        var responseText=JSON.parse(xmlhttp.responseText);</span><br><span class="line">        //这里返回数据后的处理过程了，我就不写了</span><br><span class="line">        ........</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  xmlhttp.open(&quot;POST&quot;,&quot;http://www.baidu.com&quot;,true);//第三个参数表示时候异步，true就是异步</span><br><span class="line">  xmlhttp.setRequestHeader(&quot;Content-Type&quot;,&quot;application/x-www-form-urlencoded&quot;);//如果是post请求的话就得加上这一句，因为加上这一句的就可以像表单一样获取到对应的参数，比如在php中就可以通过$_post这个超级全局变量获取到信息，如果不加这一句的话就在再$_post找不到数据</span><br><span class="line">  xmlhttp.send(null);//这里面可以传递一个参数，如果不要作为请求主体发送的数据，就不需要加上这个参数，这个参数需要序列化之后才能传进去，即stringify</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="readyState各状态代表什么"><a href="#readyState各状态代表什么" class="headerlink" title="readyState各状态代表什么"></a>readyState各状态代表什么</h3><ul>
+<li>0：未初始化，尚未调用open()方法</li>
+<li>1：启动，已经调用open方法，尚未调用send方法</li>
+<li>2：发送，已经抵用send方法，尚未收到响应</li>
+<li>3：接收，已经接收到部分数据，</li>
+<li>4：接收全部完成<h3 id="JQuery实现ajax请求"><a href="#JQuery实现ajax请求" class="headerlink" title="JQuery实现ajax请求"></a>JQuery实现ajax请求</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">  type:&quot;POST&quot;,</span><br><span class="line">  url:&quot;/api&quot;,</span><br><span class="line">  data:&#123;</span><br><span class="line">    name:&quot;chen&quot;,</span><br><span class="line">    age:&quot;bibi&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  dataType:&quot;json&quot;, //可以死json,xml,string</span><br><span class="line">  async:true, //默认true</span><br><span class="line">  success:function(data)&#123;</span><br><span class="line">    //这里的data不用通过JSON.parse转化了</span><br><span class="line">  &#125;,</span><br><span class="line">  error:function(xhr,status,errorThrown)&#123;</span><br><span class="line">    console.log(xhr.state);//获取到错误码400等</span><br><span class="line">    console.log(xhr.responseText);</span><br><span class="line">    console.log(xhr.readyState);//状态1,2,3,4</span><br><span class="line">    console.log(status);//null, timeout, error, abort, parsererror </span><br><span class="line">    console.log(errorThrown);//收到http出错文本，如 Not Found 或 Internal Server Error</span><br><span class="line">  &#125;</span><br><span class="line">  complete:function(xhr,status)&#123;</span><br><span class="line">    //第一个参数</span><br><span class="line">    console.log(xhr.responseText);//这里返回的值跟success返回的data值是一样的,它还可以xhr.status  xhr.readyState</span><br><span class="line">    //第二个参数表示的是success或者error</span><br><span class="line">    console.log(status);//success,notmodified,nocontent,error,timeout,abort,parsererror</span><br><span class="line">    if(status==&quot;timeout&quot;)&#123;</span><br><span class="line">      var xmlhttp=window.XMLHttpRequest?new window.XMLHttpRequest():new ActiveXObject(&quot;Microsoft.XMLHttp&quot;);</span><br><span class="line">      xmlhttp.abort();//中断请求</span><br><span class="line">      $(&quot;#a&quot;).html(&quot;请求超时&quot;);</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  beforeSend:function()&#123;</span><br><span class="line">    //这个是最先执行的，如果spiner图片可以在数据为拿到之前显示这个图片</span><br><span class="line">  &#125;,</span><br><span class="line">  cache:false //如果数据经常变化的话就最好设置成false</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="JQuery的get请求"><a href="#JQuery的get请求" class="headerlink" title="JQuery的get请求"></a>JQuery的get请求</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//第二个参数会在执行过程中自动加到/api后面，即/api?action=get&amp;name=chen</span><br><span class="line">//$.get(url,[data],[callback])</span><br><span class="line"></span><br><span class="line">$.get(&quot;/api&quot;,&#123;action:&quot;get&quot;,name:&quot;chen&quot;&#125;,function(data,textStatus)&#123;</span><br><span class="line">//如果成功的话textState的值是success,只有成功才能进入这个回调函数</span><br><span class="line">  console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="JQery单个post方式请求"><a href="#JQery单个post方式请求" class="headerlink" title="JQery单个post方式请求"></a>JQery单个post方式请求</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//$.post(url,[data],[callback],[type]) type是客户端请求的类型json,xml等</span><br><span class="line"></span><br><span class="line">$.post(&quot;/api&quot;,&#123;action:&quot;get&quot;,name:&quot;chen&quot;&#125;,function(data,textStatus)&#123;</span><br><span class="line">//如果成功的话textState的值是success,只有成功才能进入这个回调函数</span><br><span class="line">  console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Ajax上传文件可以通过FormData"><a href="#Ajax上传文件可以通过FormData" class="headerlink" title="Ajax上传文件可以通过FormData"></a>Ajax上传文件可以通过FormData</h3><p>因为有时候表单提交可能需要提交附件，那么如果用ajax普通方式来提交的话就会出现问题，因为form表单默认的编码方式是<code>application/x-www-form-urlencoded</code>,这种编码方式只能编码文本类型的数据，因此Ajax发送请求的时候，会把data序列化成 一个个String类型的键值对,此种传输数据的方式能够满足大部分应用场景，然而当传输的数据里有附件的时候，此序列化机制便是我们的绊脚石。FormData是html5的接口，使用它一行代码便可以拿到整个form表单对象：<code>var form = new FormData(document.getElementById(&quot;form&quot;))</code>,记住，如果不是用<code>document.getElementById(&quot;form&quot;)</code>获取数据，而是通过<code>$(&quot;#form&quot;)[0]</code>切记切记要在后面加上这个<code>[0]</code>,这是我踩过的坑，太狗血了。我们拿着获取到的这个form对象，去赋给Ajax的data，并且阻止它将参数转成成String类型的键值对，此举需要设置processData属性为false，此属性默认为true；同时设置Ajax的编码方式为false（contentType: false），在form表单里已经设置了编码方式，Ajax的编码机制已经不需要，这样我们就可以用Ajax去提交一个form对象，从而解决表单有附件的问题。需要注意的是，务必将Ajax的提交方式，设置为post，get请求只能携带几kb的数据。若是不设置processData为false，去提交带附件的form同样是提交不上去的，它的序列化机制是硬伤。所以提交的时候，只能不使用它的序列化机制。用这个formdata可以不用再form表单的标签上设置<code>enctype=&quot;multipart/form-data&quot;</code>,话不多说，看代码吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var formData=new FormData($(&quot;#form&quot;)[0]);</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">  url:&apos;接口地址&apos;,</span><br><span class="line">  type:&apos;post&apos;,</span><br><span class="line">  data:formData,</span><br><span class="line">  cache:false,</span><br><span class="line">  processData:false,</span><br><span class="line">  contentType:false,</span><br><span class="line">  success:function(data)&#123;</span><br><span class="line">    .....写自己的东西</span><br><span class="line">    &#125;</span><br><span class="line">  error:function(xhr,status)&#123;</span><br><span class="line">    console.log(status);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h3><p>情景：一个表单里面有提交文件的表单字段，点击type=”file”后选择文件，可以多次点击选择不同的文件，然后先异步上传到服务器的临时目录也就是缓存目录，当点击提交表单的时候提交全部文件<br>做法：我们每次点击选择完文件后就触发一个ajax去上传文件到缓存目录，上传成功后我们就动态生成一个input[type=”checkbox”],并且将上传文件后返回的id的值赋值到checkout的value上，这样我们提交表单后后台可以通过复选框的这些id去缓存目录找到对应的文件然后上传到服务器的真实目录上。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;form&gt;</span><br><span class="line">&lt;input type=&quot;file&quot; id=&quot;uploadFile&quot;&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function uploadFile()&#123;</span><br><span class="line">	var formData=new FormData();</span><br><span class="line">	formData.append(&quot;file&quot;,$(&quot;#uploadFile&quot;)[0].files[0]);</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:&apos;../../plugins/servlet/fileupload&apos;,</span><br><span class="line">		type:&apos;post&apos;,</span><br><span class="line">		data:formData,</span><br><span class="line">		cache:false,</span><br><span class="line">		processData:false,//阻止它将参数转成string类型的键值对</span><br><span class="line">		contentType:false,//设置ajax的编码方式为false</span><br><span class="line">		success:function(data)&#123;</span><br><span class="line">			console.log($(&quot;#uploadFile&quot;)[0].files[0].name);</span><br><span class="line">			$(&quot;.uploadFile&quot;).append(&quot;&lt;input type=&apos;checkbox&apos; class=&apos;fileTemp&apos; checked=&apos;checked&apos; name=&apos;fileTemp&apos; id=&quot;+data+&quot; value=&quot;+data+&quot;&gt;&quot;);</span><br><span class="line">		&#125;,</span><br><span class="line">		error:function(xhr,status)&#123;</span><br><span class="line">			console.log(status);</span><br><span class="line">		&#125;,</span><br><span class="line">		complete:function(XMLHttpRequest,xhr)&#123;</span><br><span class="line">    //这里主要是来做进度条的</span><br><span class="line">			var tempID=XMLHttpRequest.responseText;</span><br><span class="line">			$(&quot;.pregressBar:last&quot;).attr(&quot;data-temp&quot;,tempID);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">//这样的话每次选择文件都会触发一次ajax，每次都会动态添加一个input[type=&quot;checkbox&quot;]</span><br><span class="line">//我生成这个input也是为了做进度条的，每次点击都会触发这个ajax，还触发了另外一个实时获取进度条的ajax，另外一个ajax是通过setTimeout定时器来不断的发送请求获取进度百分比的，这个我就不在这里写了</span><br></pre></td></tr></table></figure></p>
+<h3 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h3><p>概念：JavaScript的对象变现法<br>优点：读写速度快，简短，javascript内建的方法直接解析stringify和parse<br>注意：键值对必须用<code>双引号</code>，不能用单引号<br>json的值可以是：数组，对象，数字，字符串，null</p>
+<ul>
+<li><p>JSON.parse()<br>这个的作用是将JSON字符串<code>&#39;{&quot;name&quot;:&quot;chen&quot;}&#39;</code>转换成javascript的json对象也就是普通的对象<code>{name:&quot;chen&quot;}</code>,他可以传递一个参数，这个参数对每个键值对都会进行过滤筛选</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a=&#123;&quot;name&quot;:&quot;chen&quot;,&quot;age&quot;:12&#125;</span><br><span class="line">var b=JSON.parse(a,function(key,value)&#123;</span><br><span class="line">  if(key===&quot;age&quot;)&#123;</span><br><span class="line">    value=14;</span><br><span class="line">  &#125;</span><br><span class="line">  return value;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(b);</span><br><span class="line">最后输出的是&#123;name:&quot;chen&quot;,age:14&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JSON.stringify()<br>这个的作用是将对象转换成json字符串，也就是<strong>序列化</strong>的过程。可以传递其他两个参数，第一个参数是过滤器，可以是数组，也可以是一个函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">var a=&#123;&quot;name&quot;:&quot;chen&quot;,&quot;age&quot;:12&#125;</span><br><span class="line">//函数的时候</span><br><span class="line">var b=JSON.stringify(a,function(key,value)&#123;</span><br><span class="line">  if(key===&quot;age&quot;)&#123;</span><br><span class="line">    value=14;</span><br><span class="line">  &#125;</span><br><span class="line">  return value;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(b);</span><br><span class="line">最后输出的是&#123;&quot;name&quot;:&quot;chen&quot;,&quot;age&quot;:14&#125;</span><br><span class="line"></span><br><span class="line">//数组的时候</span><br><span class="line">var b=JSON.stringify(a,[&quot;name&quot;]);</span><br><span class="line">console.log(b)</span><br><span class="line">最后输出的是&#123;&quot;name&quot;:&quot;chen&quot;&#125;</span><br><span class="line"></span><br><span class="line">//第三个参数是字符串缩进</span><br><span class="line">var b=JSON.stringify(a,null,&quot;--&quot;);</span><br><span class="line">console.log(b)</span><br><span class="line">最后输出的是</span><br><span class="line">&#123;</span><br><span class="line">--&quot;name&quot;:&quot;chen&quot;,</span><br><span class="line">--&quot;age&quot;:12</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="JSON和XML的相互转换"><a href="#JSON和XML的相互转换" class="headerlink" title="JSON和XML的相互转换"></a>JSON和XML的相互转换</h3><p>需要下载：jquery / jquery.json2xml.js / jquery.xml2json.js</p>
+<ul>
+<li><p>xml转换成json对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var str=&quot;&quot;;</span><br><span class="line">str+=&quot;&lt;root&gt;&quot;;</span><br><span class="line">str+=&quot;&lt;name&gt;chen&lt;/name&gt;&quot;;</span><br><span class="line">str+=&quot;&lt;age&gt;32&lt;/age&gt;&quot;;</span><br><span class="line">str+=&quot;&lt;/root&gt;&quot;;</span><br><span class="line">var obj=$.xml2json(str);</span><br><span class="line">console.log(str);//结果是&#123;name:&quot;chen&quot;,age:32&#125;</span><br><span class="line">var json=JSON.stringify(obj)//输出是&#123;&quot;name&quot;:&quot;chen&quot;,&quot;age&quot;:32&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>json对象转换成xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a=&#123;name:&quot;chen&quot;,age:43&#125;;</span><br><span class="line">$.json2xml(a);//输出是&lt;root&gt;&lt;name&gt;chen&lt;/name&gt;&lt;age&gt;43&lt;/age&gt;&lt;/root&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="GeoJSON和TopoJSON"><a href="#GeoJSON和TopoJSON" class="headerlink" title="GeoJSON和TopoJSON"></a>GeoJSON和TopoJSON</h3><p>测试工具：geojson.io<br>这两种是符合JSON数据格式的表示地理信息</p>
+<ul>
+<li>GeoJSON<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;type&quot;:&quot;point&quot;, //表示点,LineString表示面</span><br><span class="line">  &quot;coordinates&quot;:[-105,39]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3><p>当协议，子域名，主域名，端口号任意一个不同就是跨域<br>javascript的同源策略是对XHR的主要约束，他为通信设置了“相同的域、相同的端口、相同的协议”，视图访问上述限制外的资源会引发安全错误，那么就需要跨域解决方案，这个解决方案就是<strong>CORS(跨源资源共享)</strong> IE8通过XDR（XDomainRequest）对象支持CORS，其他浏览器通过XHR对象原生支持CORS。图像PING和JSONP也类似于CORS，也是解决跨域通信的技术。</p>
+<h3 id="解决跨域"><a href="#解决跨域" class="headerlink" title="解决跨域"></a>解决跨域</h3><ul>
+<li>代理，主要是在后端人员操作，比如北京有一台服务器<a href="http://www.beijin.com" target="_blank" rel="noopener">www.beijin.com</a> 想访问上海服务器 <a href="http://www.shanhai.com" target="_blank" rel="noopener">www.shanhai.com</a> 那么我们就只需要在在北京服务器上做一个代理服务器即与北京服务器是同源的<a href="http://www.beijin.com/prox" target="_blank" rel="noopener">www.beijin.com/prox</a> 然后通过这个代理去访问上海服务器的数据，然后我们前端只需要获取数据只要访问<a href="http://www.beijin.com/prox" target="_blank" rel="noopener">www.beijin.com/prox</a> 就好了</li>
+<li>JSONP，可用于解决主流浏览器的跨域数据访问问题（不支持post请求,还有就是JSONP死是从其他域中加载代码执行，如果其他域不安全，那么web服务就不安全了）<br>例子1<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">在www.aaa.com页面中声明一个函数</span><br><span class="line">&lt;script src=&quot;http://www.bbb.com/jsonp.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  function jsonp(json)&#123;</span><br><span class="line">    console.log(json[&quot;name&quot;]);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">在www.bbb.com页面中</span><br><span class="line">jsonp(&#123;&quot;name&quot;:&quot;chen&quot;&#125;)</span><br><span class="line">以上的执行时a域名声明，b域名调用</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>例子2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//前端</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">  type:&quot;GET&quot;,</span><br><span class="line">  url:&quot;/api&quot;,</span><br><span class="line">  data:&#123;</span><br><span class="line">    name:&quot;chen&quot;,</span><br><span class="line">    age:&quot;bibi&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  dataType:&quot;jsonp&quot;,//改成jsonp</span><br><span class="line">  jsonp:&quot;call&quot;,//call随便都可以</span><br><span class="line">  success:function(data)&#123;</span><br><span class="line">  </span><br><span class="line">  &#125;,</span><br><span class="line">  error:function(xhr)&#123;</span><br><span class="line">    console.log(xhr.state);//获取到错误码400等</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">//后端php</span><br><span class="line">$jsonp=$_GET[&quot;call&quot;];</span><br><span class="line">$result=$jsonp.&apos;(&#123;&quot;success&quot;:false,&quot;msg&quot;:&quot;错误&quot;&#125;)&apos;; //返回的数据必须用$.jsonp.(&#123;...&#125;)连接起来</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>XHR2</li>
+</ul>
+<h3 id="Comet"><a href="#Comet" class="headerlink" title="Comet"></a>Comet</h3><p>Ajax是一种从页面向服务器请求数据的技术，而Comet则是一种服务器向页面推送数据的技术<br>两种实现Comet的方式：<strong>长轮询和流</strong>。长轮询是传统轮询的翻版<br><strong>长轮询和短轮询的区别</strong><br>短轮询是服务器立即发送响应，无论数据是否有效，<br>长轮询是页面发起请求，服务器一直保持连接打开，知道有数据发送，发送完数据之后，浏览器关闭连接，随即又发起到一个到服务器的新请求<br>HTTP流，流不同于上述两种轮询，因为它在页面的整个生命周期内只使用一个HTTP连接，就是浏览器向服务器发送一个请求，而服务器保持连接打开，然后周期性的向浏览器发送数据</p>
+
+                
+<p class="mediumturquoise-link-context">
+    <a href="/2017/10/13/stickyFooter/" rel="next" title="stickFooter">
+    上一篇：stickFooter
+  </a>
+</p>
+
+
+
+<p class="mediumturquoise-link-context">
+    <a href="/2017/10/11/Knockout的应用/" rel="next" title="Knockout">
+    下一篇：Knockout
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large mediumturquoise">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://weibo.com/u/2956405011?is_all=1" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaobin" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="https://chenjiaobin.github.io/" target="_blank">作者的技术博客</a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaobin" target="_blank">Github地址</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright mediumturquoise-link-context">
+        <div class="container" style="text-align:center">
+            kevin© 2017 chenjiaobin.github.io, All rights reserved.
+           <!-- <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>-->
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('mediumturquoise lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-reading, .menu-about').append('<span class="new badge mediumturquoise"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword mediumturquoise lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword mediumturquoise lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

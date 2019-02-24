@@ -1,0 +1,715 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>This | 死老头</title>
+    <meta name="author" content="kevin">
+    
+    <meta name="description" content="日常开发中，我们经常用到this。例如用Jquery绑定事件时，this指向触发事件的DOM元素；编写Vue、React组件时，this指向组件本身。对于新手来说，常会用一种意会的感觉去判断this的指向。以至于当遇到复杂的函数调用时，就分不清this的真正指向。">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="This">
+    <meta property="og:site_name" content="程序猿那点事">
+
+    
+    <meta property="og:image" content>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="程序猿那点事" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class>
+            <a href="/" class="brand-logo hide-on-med-and-down">程序猿那点事</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww2.sinaimg.cn/small/74990035jw1f1rjkd681bj20rs0rsdhg.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">陈焦滨&amp;kevin</p>
+                        <p class="desc">Web前端/技术宅</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">36 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/CSS/">
+                    CSS <span class="right">8 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/JS/">
+                    JS <span class="right">20 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/HTML5/">
+                    HTML5 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/框架/">
+                    框架 <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/协议/">
+                    协议 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/构建工具/">
+                    构建工具 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/配置/">
+                    配置 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/知识库/">
+                    知识库 <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/移动端/">
+                    移动端 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/前端/">前端</a><a class="breadcrumb" href="/categories/前端/JS/">JS</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>This</h1>
+    
+
+
+            </div>
+            <time class="mediumturquoise-link-context" datetime="2017-09-04T10:48:00.000Z"><a href="/2017/09/04/This解析/">2017-09-04</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/this/" class="chip pink lighten-1">this</a>
+        
+            <a href="/tags/作用域/" class="chip pink lighten-1">作用域</a>
+        
+            <a href="/tags/This/" class="chip pink lighten-1">This</a>
+        
+    </div>
+
+
+            <div class="toc mediumturquoise-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#箭头函数实际表示"><span class="section table-of-contents-text">箭头函数实际表示</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#参考网站"><span class="section table-of-contents-text">参考网站</span></a></li></ol>
+</div>
+
+
+            <div class="entry mediumturquoise-link-context">
+                <p>日常开发中，我们经常用到this。例如用Jquery绑定事件时，this指向触发事件的DOM元素；编写Vue、React组件时，this指向组件本身。对于新手来说，常会用一种意会的感觉去判断this的指向。以至于当遇到复杂的函数调用时，就分不清this的真正指向。<br><a id="more"></a><br>本文将通过两道题去慢慢分析this的指向问题，并涉及到函数作用域与对象相关的点。最终给大家带来真正的理论分析，而不是简简单单的一句话概括。</p>
+<p>相信若是对this稍有研究的人，都会搜到这句话：this总是指向调用该函数的对象。</p>
+<p>然而箭头函数并不是如此，于是大家就会遇到如下各式说法：</p>
+<ul>
+<li><p>箭头函数的this指向外层函数作用域中的this。</p>
+</li>
+<li><p>箭头函数的this是定义函数时所在上下文中的this。</p>
+</li>
+<li><p>箭头函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。</p>
+<h3 id="箭头函数实际表示"><a href="#箭头函数实际表示" class="headerlink" title="箭头函数实际表示"></a>箭头函数实际表示</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var test = () =&gt; &#123;</span><br><span class="line">    console.log(this.a);</span><br><span class="line">&#125;</span><br><span class="line">//形式上等价于</span><br><span class="line">var test = function()&#123;</span><br><span class="line">    console.log(this.a);</span><br><span class="line">&#125;</span><br><span class="line">//实质上等价于</span><br><span class="line">function fn()&#123;</span><br><span class="line">    var that = this;</span><br><span class="line">    var test = function()&#123;</span><br><span class="line">        console.log(that.a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">        console.log( this.a );</span><br><span class="line">    &#125;,100);</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2</span><br><span class="line">&#125;;</span><br><span class="line">foo.call( obj ); // 2</span><br><span class="line">//相当于</span><br><span class="line">function foo() &#123;</span><br><span class="line">    var that = this; </span><br><span class="line">    setTimeout( function()&#123;</span><br><span class="line">        console.log( that.a );</span><br><span class="line">    &#125;, 100 );</span><br><span class="line">&#125;</span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 2</span><br><span class="line">&#125;;</span><br><span class="line">foo.call( obj ); // 2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var name=&quot;chenjiaobin&quot;;</span><br><span class="line">var obj=&#123;</span><br><span class="line">    name:&apos;hh&apos;,</span><br><span class="line">    test:()=&gt;console.log(this.name);</span><br><span class="line">&#125;</span><br><span class="line">//相当于</span><br><span class="line">var name=&quot;chenjiaobin&quot;;</span><br><span class="line">var that=this;</span><br><span class="line">var obj=&#123;</span><br><span class="line">    name:&apos;hh&apos;,</span><br><span class="line">    test:function()&#123;</span><br><span class="line">        console.log(that.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.test()//chenjiaobin;</span><br></pre></td></tr></table></figure>
+<p><strong>结论：</strong>箭头函数本身是没有this的，它的this是依靠外层函数的this决定的，如果没有外层函数就直接指向window<br>各式各样的说法都有，乍看下感觉说的差不多。废话不多说，凭着你之前的理解，来先做一套题吧（非严格模式下）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Question 1</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">var name = &apos;window&apos;</span><br><span class="line"></span><br><span class="line">var person1 = &#123;</span><br><span class="line">  name: &apos;person1&apos;,</span><br><span class="line">  show1: function () &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">  &#125;,</span><br><span class="line">  show2: () =&gt; console.log(this.name),</span><br><span class="line">  show3: function () &#123;</span><br><span class="line">    return function () &#123;</span><br><span class="line">      console.log(this.name)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  show4: function () &#123;</span><br><span class="line">    return () =&gt; console.log(this.name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var person2 = &#123; name: &apos;person2&apos; &#125;</span><br><span class="line"></span><br><span class="line">person1.show1()</span><br><span class="line">person1.show1.call(person2)</span><br><span class="line"></span><br><span class="line">person1.show2()</span><br><span class="line">person1.show2.call(person2)</span><br><span class="line"></span><br><span class="line">person1.show3()()</span><br><span class="line">person1.show3().call(person2)</span><br><span class="line">person1.show3.call(person2)()</span><br><span class="line"></span><br><span class="line">person1.show4()()</span><br><span class="line">person1.show4().call(person2)</span><br><span class="line">person1.show4.call(person2)()</span><br></pre></td></tr></table></figure></p>
+<p>代码解读<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//上面的show2属性代码相当于</span><br><span class="line">var name = &apos;window&apos;</span><br><span class="line">var that=this;</span><br><span class="line">var person1 = &#123;</span><br><span class="line">  //show2: () =&gt; console.log(this.name);这里因为没有外层函数所以this指向的是window的this，所以在全局里面定义了个that</span><br><span class="line">  show2:function()&#123;</span><br><span class="line">    console.log(that.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//上面的show4属性代码相当于</span><br><span class="line">var name = &apos;window&apos;</span><br><span class="line">var person1 = &#123;</span><br><span class="line">  // show4: function () &#123;//这里有外层函数，就是这个function，所以在箭头函数的this指向的就是这个function的this值</span><br><span class="line">  //  return () =&gt; console.log(this.name);</span><br><span class="line">  // &#125;</span><br><span class="line">  show4:function()&#123;</span><br><span class="line">    var that=this;</span><br><span class="line">    return function()&#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大致意思就是，有两个对象person1，person2，然后花式调用person1中的四个show方法，预测真正的输出。<br>你可以先把自己预测的答案按顺序记在本子上，然后再往下拉看正确答案。<br>正确答案选下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">person1.show1() // person1</span><br><span class="line">person1.show1.call(person2) // person2</span><br><span class="line"></span><br><span class="line">person1.show2() // window</span><br><span class="line">person1.show2.call(person2) // window</span><br><span class="line"></span><br><span class="line">person1.show3()() // window</span><br><span class="line">person1.show3().call(person2) // person2</span><br><span class="line">person1.show3.call(person2)() // window</span><br><span class="line"></span><br><span class="line">person1.show4()() // person1</span><br><span class="line">person1.show4().call(person2) // person1</span><br><span class="line">person1.show4.call(person2)() // person2</span><br></pre></td></tr></table></figure></p>
+<p>对比下你刚刚记下的答案，是否有不一样呢？让我们尝试来最开始那些理论来分析下。</p>
+<p>person1.show1()与person1.show1.call(person2)好理解，验证了谁调用此方法，this就是指向谁。</p>
+<p>person1.show2()与person1.show2.call(person2)的结果用上面的定义解释，就开始让人不理解了。</p>
+<p>它的执行结果说明this指向的是window。那就不是所谓的定义时所在的对象。<br>如果说是外层函数作用域中的this，实际上并没有外层函数了，外层就是全局环境了，这个说法也不严谨。<br>只有定义函数时所在上下文中的this这句话算能描述现在这个情况。<br>person1.show3是一个高阶函数，它返回了一个函数，分步走的话，应该是这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var func = person3.show()</span><br><span class="line"></span><br><span class="line">func()</span><br></pre></td></tr></table></figure></p>
+<p>从而导致最终调用函数的执行环境是window，但并不是window对象调用了它。所以说，this总是指向调用该函数的对象，这句话还得补充一句：在全局函数中，this等于window。</p>
+<p>person1.show3().call(person2) 与 person1.show3.call(person2)() 也好理解了。前者是通过person2调用了最终的打印方法。后者是先通过person2调用了person1的高阶函数，然后再在全局环境中执行了该打印方法。</p>
+<p>person1.show4()()，person1.show4().call(person2)都是打印person1。这好像又印证了那句：箭头函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。因为即使我用过person2去调用这个箭头函数，它指向的还是person1。</p>
+<p>然而person1.show4.call(person2)()的结果又是person2。this值又发生改变，看来上述那句描述又走不通了。一步步来分析，先通过person2执行了show4方法，此时show4第一层函数的this指向的是person2。所以箭头函数输出了person2的name。也就是说，箭头函数的this指向的是谁调用箭头函数的外层function，箭头函数的this就是指向该对象，如果箭头函数没有外层函数，则指向window。这样去理解show2方法，也解释的通。</p>
+<p>这句话就对了么？在我们学习的过程中，我们总是想以总结规律的方法去总结结论，并且希望结论越简单越容易描述就越好。实际上可能会错失真理。</p>
+<p>下面我们再做另外一个相似的题目，通过构造函数来创建一个对象，并执行相同的4个show 方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Question 2</span><br><span class="line"> */</span><br><span class="line">var name = &apos;window&apos;</span><br><span class="line"></span><br><span class="line">function Person (name) &#123;</span><br><span class="line">  this.name = name;</span><br><span class="line">  this.show1 = function () &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">  &#125;</span><br><span class="line">  this.show2 = () =&gt; console.log(this.name)</span><br><span class="line">  this.show3 = function () &#123;</span><br><span class="line">    return function () &#123;</span><br><span class="line">      console.log(this.name)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  this.show4 = function () &#123;</span><br><span class="line">    return () =&gt; console.log(this.name)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var personA = new Person(&apos;personA&apos;)</span><br><span class="line">var personB = new Person(&apos;personB&apos;)</span><br><span class="line"></span><br><span class="line">personA.show1()</span><br><span class="line">personA.show1.call(personB)</span><br><span class="line"></span><br><span class="line">personA.show2()</span><br><span class="line">personA.show2.call(personB)</span><br><span class="line"></span><br><span class="line">personA.show3()()</span><br><span class="line">personA.show3().call(personB)</span><br><span class="line">personA.show3.call(personB)()</span><br><span class="line"></span><br><span class="line">personA.show4()()</span><br><span class="line">personA.show4().call(personB)</span><br><span class="line">personA.show4.call(personB)()</span><br></pre></td></tr></table></figure></p>
+<p>同样的，按照之前的理解，再次预计打印结果，把答案记下来，再往下拉看正确答案。</p>
+<p>正确答案选下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">personA.show1() // personA</span><br><span class="line">personA.show1.call(personB) // personB</span><br><span class="line"></span><br><span class="line">personA.show2() // personA</span><br><span class="line">personA.show2.call(personB) // personA</span><br><span class="line"></span><br><span class="line">personA.show3()() // window</span><br><span class="line">personA.show3().call(personB) // personB</span><br><span class="line">personA.show3.call(personB)() // window</span><br><span class="line"></span><br><span class="line">personA.show4()() // personA</span><br><span class="line">personA.show4().call(personB) // personA</span><br><span class="line">personA.show4.call(personB)() // personB</span><br></pre></td></tr></table></figure></p>
+<p>我们发现与之前字面量声明的相比，show2方法的输出产生了不一样的结果。为什么呢？虽然说构造方法Person是有自己的函数作用域。但是对于person1来说，它只是一个对象，在直观感受上，它跟第一道题中的person1应该是一模一样的。 JSON.stringify(new Person(‘person1’)) === JSON.stringify(person1)也证明了这一点。</p>
+<p>说明构造函数创建对象与直接用字面量的形式去创建对象，它是不同的，构造函数创建对象，具体做了什么事呢？我引用红宝书中的一段话。<br>使用 new 操作符调用构造函数，实际上会经历一下4个步骤：<br>创建一个新对象；<br>将构造函数的作用域赋给新对象（因此this就指向了这个新对象）；<br>执行构造函数中的代码（为这个新对象添加属性）；<br>返回新对象。<br>所以与字面量创建对象相比，很大一个区别是它多了构造函数的作用域。</p>
+<p>personA的函数的作用域链从构造函数产生的闭包开始，而person1的函数作用域仅是global，于是导致this指向的不同。我们发现，要想真正理解this，先得知道到底什么是作用域，什么是闭包。</p>
+<p>有简单的说法称闭包就是能够读取其他函数内部变量的函数。然而这是一种闭包现象的描述，而不是它的本质与形成的原因。<br>…每个函数都有自己的执行环境（execution context，也叫执行上下文），每个执行环境都有一个与之关联的变量对象，环境中定义的所有变量和函数都保存在这个对象中。</p>
+<p>…当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。当代码在环境中执行时，会创建一个作用域链，来保证对执行环境中的所有变量和函数的有序访问。函数执行之后，栈将环境弹出。</p>
+<p>…函数内部定义的函数会将包含函数的活动对象添加到它的作用域链中。</p>
+<p>具体来说，当我们 var func = personA.show3() 时，personA的show3函数的活动对象，会一直保存在func的作用域链中。只要不销毁func，那么show3函数的活动对象就会一直保存在内存中。（chrome的v8引擎对闭包的开销会有优化）</p>
+<p>而构造函数同样也是闭包的机制，personA的show1方法，是构造函数的内部函数，因此执行了 this.show3 = function () { console.log(this.name) }时，已经把构造函数的活动对象推到了show3函数的作用域链中。</p>
+<p>我们再回到this的指向问题。我们发现，单单是总结规律，或者用一句话概括，已经难以正确解释它到底指向谁了，我们得追本溯源。</p>
+<p>红宝书中说道：</p>
+<p>…this引用的是函数执行的环境对象（便于理解，贴上英文原版：It is a reference to the context object that the function is operating on）。 …每个函数被调用时都会自动获取两个特殊变量：this和arguments。内部在搜索这个两个变量时，只会搜索到其活动对象为止，永远不可能直接访问外部函数中的这两个变量。</p>
+<p>我们看下MDN中箭头函数的概念：</p>
+<p>一个箭头函数表达式的语法比一个函数表达式更短，并且不绑定自己的 this，arguments，super或 new.target。…箭头函数会捕获其所在上下文的 this 值，作为自己的 this 值。</p>
+<p>也就是说，普通情况下，this指向调用函数时的对象。在全局执行时，则是全局对象。</p>
+<p>箭头函数的this，因为没有自身的this，所以this只能根据作用域链往上层查找，直到找到一个绑定了this的函数作用域（即最靠近箭头函数的普通函数作用域，或者全局环境），并指向调用该普通函数的对象。</p>
+<p>或者从现象来描述的话，即箭头函数的this指向声明函数时，最靠近箭头函数的普通函数的this。但这个this也会因为调用该普通函数时环境的不同而发生变化。导致这个现象的原因是这个普通函数会产生一个闭包，将它的变量对象保存在箭头函数的作用域中。</p>
+<p>故而personA的show2方法因为构造函数闭包的关系，指向了构造函数作用域内的this。而<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var func = personA.show4.call(personB)</span><br><span class="line"></span><br><span class="line">func() // print personB</span><br></pre></td></tr></table></figure></p>
+<p>因为personB调用了personA的show4，使得返回函数func的作用域的this绑定为personB，进而调用func时，箭头函数通过作用域找到的第一个明确的this为personB。进而输出personB。</p>
+<p>讲了这么多，可能还是有点绕。总之，想充分理解this的前提，必须得先明白js的执行环境、闭包、作用域、构造函数等基础知识。然后才能得出清晰的结论。</p>
+<p>我们平常在学习过程中，难免会更倾向于根据经验去推导结论，或者直接去找一些通俗易懂的描述性语句。然而实际上可能并不是最正确的结果。如果想真正掌握它，我们就应该追本溯源的去研究它的内部机制。</p>
+<h3 id="参考网站"><a href="#参考网站" class="headerlink" title="参考网站"></a>参考网站</h3><p><a href="https://www.cnblogs.com/xiaohuochai/p/5737876.html" target="_blank" rel="noopener">文章1</a><br><a href="http://mp.weixin.qq.com/s/qoHAYft7gdr8h058E-zBJw" target="_blank" rel="noopener">文章2</a></p>
+
+                
+<p class="mediumturquoise-link-context">
+    <a href="/2017/09/08/dpr设备像素比/" rel="next" title="移动端设备像素比">
+    上一篇：移动端设备像素比
+  </a>
+</p>
+
+
+
+<p class="mediumturquoise-link-context">
+    <a href="/2017/08/29/HGGT/" rel="next" title="Hexo+Git+GitHub+Travis部署个人博客">
+    下一篇：Hexo+Git+GitHub+Travis部署个人博客
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large mediumturquoise">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://weibo.com/u/2956405011?is_all=1" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaobin" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="https://chenjiaobin.github.io/" target="_blank">作者的技术博客</a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaobin" target="_blank">Github地址</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright mediumturquoise-link-context">
+        <div class="container" style="text-align:center">
+            kevin© 2017 chenjiaobin.github.io, All rights reserved.
+           <!-- <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>-->
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('mediumturquoise lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-reading, .menu-about').append('<span class="new badge mediumturquoise"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword mediumturquoise lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword mediumturquoise lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>

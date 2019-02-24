@@ -1,0 +1,704 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>React入门爬坑记（一） | 死老头</title>
+    <meta name="author" content="kevin">
+    
+    <meta name="description" content="React是众多前端开发中较为青睐的框架，但是相对于其他，React的学习成本相对比较高，但是在适合的场景下通过React开发出来的产品性能以及结构会比较好">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="React入门爬坑记（一）">
+    <meta property="og:site_name" content="程序猿那点事">
+
+    
+    <meta property="og:image" content>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="程序猿那点事" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class>
+            <a href="/" class="brand-logo hide-on-med-and-down">程序猿那点事</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-reading " href="/reading">
+                            <i class="fa fa-book "></i>
+                            
+                            读书
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="http://ww2.sinaimg.cn/small/74990035jw1f1rjkd681bj20rs0rsdhg.jpg" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">陈焦滨&amp;kevin</p>
+                        <p class="desc">Web前端/技术宅</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-reading " href="/reading">
+                    <i class="fa fa-book "></i>
+                    
+                    读书
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/前端/">
+                    前端 <span class="right">36 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/CSS/">
+                    CSS <span class="right">8 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/JS/">
+                    JS <span class="right">20 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/HTML5/">
+                    HTML5 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/框架/">
+                    框架 <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/前端/协议/">
+                    协议 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/构建工具/">
+                    构建工具 <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/配置/">
+                    配置 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/知识库/">
+                    知识库 <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/移动端/">
+                    移动端 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/前端/">前端</a><a class="breadcrumb" href="/categories/前端/框架/">框架</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>React入门爬坑记（一）</h1>
+    
+
+
+            </div>
+            <time class="mediumturquoise-link-context" datetime="2018-08-30T14:15:00.000Z"><a href="/2018/08/30/React_1/">2018-08-30</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/React/" class="chip pink lighten-1">React</a>
+        
+    </div>
+
+
+            <div class="toc mediumturquoise-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#demo"><span class="section table-of-contents-text">demo</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#安装全局依赖"><span class="section table-of-contents-text">安装全局依赖</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#创建项目以及安装项目依赖"><span class="section table-of-contents-text">创建项目以及安装项目依赖</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#React的坑"><span class="section table-of-contents-text">React的坑</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#结语"><span class="section table-of-contents-text">结语</span></a></li></ol>
+</div>
+
+
+            <div class="entry mediumturquoise-link-context">
+                <p> React是众多前端开发中较为青睐的框架，但是相对于其他，React的学习成本相对比较高，但是在适合的场景下通过React开发出来的产品性能以及结构会比较好<a id="more"></a></p>
+<h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3><p>地址：<a href="https://github.com/chenjiaobin/react_demo" target="_blank" rel="noopener">https://github.com/chenjiaobin/react_demo</a></p>
+<h3 id="安装全局依赖"><a href="#安装全局依赖" class="headerlink" title="安装全局依赖"></a>安装全局依赖</h3><p>首先在开始使用React之前我们需要安装相应的依赖</p>
+<ul>
+<li>全局安装React<code>npm install react -g</code></li>
+<li>全局安装react-dom <code>npm install react-dom -g</code></li>
+<li>全局安装webpack-dev-server <code>npm install webpack-dev-server -g</code>这个是为了作为前端开发的服务</li>
+<li>全局安装webpack <code>npm install webpack -g</code>这个是项目打包工具<h3 id="创建项目以及安装项目依赖"><a href="#创建项目以及安装项目依赖" class="headerlink" title="创建项目以及安装项目依赖"></a>创建项目以及安装项目依赖</h3></li>
+</ul>
+<ol>
+<li>通过<code>npm init</code>生成package.json，并填写相应的配置信息，最终生成package.json文件</li>
+<li><p>安装项目依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&quot;babel-core&quot;: &quot;^6.26.3&quot; //这个是babel的核心，一下的babel相关都是为了转码es6和react</span><br><span class="line">&quot;babel-loader&quot;: &quot;^7.1.4&quot;</span><br><span class="line">&quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;</span><br><span class="line">&quot;babel-preset-react&quot;: &quot;^6.24.1&quot;</span><br><span class="line">&quot;babelify&quot;: &quot;^8.0.0&quot;</span><br><span class="line">&quot;html-webpack-plugin&quot;: &quot;^3.2.0&quot;  //这个是为了热更新加上的，每次更改代码会重新打包html</span><br><span class="line">&quot;react&quot;: &quot;^16.4.0&quot;</span><br><span class="line">&quot;react-dom&quot;: &quot;^16.4.0&quot;</span><br><span class="line">&quot;webpack&quot;: &quot;^4.10.2&quot;</span><br><span class="line">&quot;webpack-dev-server&quot;: &quot;^3.1.4&quot; //项目的微服务</span><br><span class="line">&quot;babel-preset-stage-0&quot;: &quot;^6.24.1&quot;  //使用es7feature,在这个demo是为了解决react中static状态报错</span><br><span class="line">&quot;bower-webpack-plugin&quot;: &quot;^0.1.9&quot;</span><br><span class="line">&quot;open-browser-webpack-plugin&quot;: &quot;^0.0.5&quot; //编译完项目自动打开浏览器</span><br><span class="line">&quot;prop-types&quot;: &quot;^15.6.1&quot; //react在15.5.0版本以后就将propType移除，被独立成一个新的包prop-type,所以需要安装prop-types,并在组件中import进来</span><br><span class="line">&quot;react-mixin&quot;: &quot;^2.0.2&quot;  //在es6语法的基类中不能使用mixin，所以只能通过第三方插件来解决这个问题</span><br><span class="line">&quot;webpack-cli&quot;: &quot;^3.0.1&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置webpack,新建文件webpack.config.js,内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">var webpack = require(&apos;webpack&apos;)</span><br><span class="line">var path = require(&apos;path&apos;)</span><br><span class="line">// 打包html</span><br><span class="line">var HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);</span><br><span class="line">var OpenBrowserPlugin = require(&apos;open-browser-webpack-plugin&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  mode: &apos;development&apos;,</span><br><span class="line">  entry: path.join(__dirname,&apos;/src/index.js&apos;),//这是入口文件，你需要在src文件夹下创建index.js入口文件</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname + &apos;/build&apos;),</span><br><span class="line">    filename: &apos;bundle.js&apos;</span><br><span class="line">  &#125;,</span><br><span class="line">  devtool: &apos;eval-source-map&apos;,</span><br><span class="line">  devServer: &#123;</span><br><span class="line">  	port: 8080,</span><br><span class="line">  	contentBase: &apos;./src&apos;, //src文件夹里面的内容改变就会重新打包</span><br><span class="line">  	historyApiFallback: true,</span><br><span class="line">  	hot: true,</span><br><span class="line">  	inline: true //devServer有iframe(默认)和inline模式</span><br><span class="line">  &#125;,</span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.js?$/,//表示要编译的文件的类型，这里要编译的是js文件</span><br><span class="line">        loader: &apos;babel-loader&apos;,//装载的哪些模块</span><br><span class="line">        exclude: /node_modules/,//标示不编译node_modules文件夹下面的内容</span><br><span class="line">        query: &#123;//具体的编译的类型，</span><br><span class="line">            compact: true,//表示不压缩</span><br><span class="line">            presets: [&apos;es2015&apos;, &apos;react&apos;, &apos;stage-0&apos;]//我们需要编译的是es6和react,stage-0这个插件是为了解决静态属性static</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">  	new HtmlWebpackPlugin(&#123;</span><br><span class="line">  		title: &quot;This is the result&quot;,</span><br><span class="line">        filename: &quot;./index.html&quot;,</span><br><span class="line">        template: &quot;./index.html&quot;</span><br><span class="line">  	&#125;),</span><br><span class="line">    new OpenBrowserPlugin(&#123; url: &apos;http://localhost:8080&apos; &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建入口文件,demo文件内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var React = require(&apos;react&apos;)</span><br><span class="line">var ReactDom = require (&apos;react-dom&apos;)</span><br><span class="line">import ComponentHeader from  &apos;./components/header.js&apos;</span><br><span class="line">import ComponentBody from  &apos;./components/bodyIndex.js&apos;</span><br><span class="line">import ComponentBottom from  &apos;./components/footer.js&apos;</span><br><span class="line">class Index extends React.Component &#123;</span><br><span class="line">  render () &#123;</span><br><span class="line">    return (</span><br><span class="line">    		&lt;div&gt;</span><br><span class="line">        	&lt;ComponentHeader name=&quot;我是阿布&quot;/&gt;</span><br><span class="line">        	&lt;ComponentBody userId=&#123;123456&#125; sex=&quot;male&quot;/&gt;</span><br><span class="line">        	&lt;ComponentBottom/&gt;</span><br><span class="line">    		&lt;/div&gt;</span><br><span class="line">      )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">ReactDom.render(</span><br><span class="line">    &lt;Index/&gt;,</span><br><span class="line">    document.getElementById(&apos;app&apos;)</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再将对应的组件创建出来，详情代码请看<a href="https://github.com/chenjiaobin/react_demo" target="_blank" rel="noopener">demo</a></p>
+</li>
+<li>开始打包,在控制台执行<code>webpack-dev-server --devtool eval-source-map --progress --colors --hot --inline --content-base ./build</code>，这个我已经在package.json配置好了，所以如果在使用demo的时候直接使用<code>npm run dev</code>就好了<h3 id="React的坑"><a href="#React的坑" class="headerlink" title="React的坑"></a>React的坑</h3>参考地址： <a href="https://segmentfault.com/a/1190000005863630" target="_blank" rel="noopener">地址</a><blockquote>
+<p>React.createClass和React.Component的区别(React.createClass在16.0版本以后已经被废除了)</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>语法区别<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 注意：组件名字的首字母大写，如Mydemo</span><br><span class="line">import React from &apos;react&apos;</span><br><span class="line"></span><br><span class="line">// 这个是React.createClass的语法</span><br><span class="line">const Mydemo = React.createClass(&#123;</span><br><span class="line">    render () &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;这个是demo&lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">export default Mydemo</span><br><span class="line"></span><br><span class="line">// 这个是React.Component的语法</span><br><span class="line">export default class Mydemo2 extends React.Component &#123;</span><br><span class="line">    constructor (props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">    &#125;</span><br><span class="line">    render () &#123;</span><br><span class="line">        return (&#123;</span><br><span class="line">            &lt;div&gt;这个事React.Component的语法&lt;/div&gt;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 后一种方法使用ES6的语法，用constructor构造器来构造默认的属性和状态</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>propType 和 getDefaultProps<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">// React.createClass：通过proTypes对象和getDefaultProps()方法来设置和获取props.</span><br><span class="line"></span><br><span class="line">const Mydemo = React.createClass(&#123;</span><br><span class="line">    propTypes: &#123;</span><br><span class="line">        name: React.PropTypes.string //设置props中name的类型</span><br><span class="line">    &#125;</span><br><span class="line">    getDefaultProps() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            name: &apos;陈焦滨&amp;kevin&apos; //设置props中name的默认值</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;,</span><br><span class="line">    render () &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;这个是demo&lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// React.Component：通过设置两个属性propTypes和defaultProps</span><br><span class="line"></span><br><span class="line">import PropTypes from &apos;prop-types&apos;</span><br><span class="line">export default class Mydemo2 extends React.Component &#123;</span><br><span class="line">    constructor (props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">    &#125;</span><br><span class="line">    // 在propTypes在15.5.0版本以后就被移除了，被单独封装成一个包prop-type,用的时候需要安装依赖prop-types</span><br><span class="line">    //static propTypes = &#123;</span><br><span class="line">    //   name: React.PropTypes.string</span><br><span class="line">    //&#125;;</span><br><span class="line">    //使用static的时候记得安装babel-preset-stage-0</span><br><span class="line">    static defaultProps = &#123;</span><br><span class="line">        name: &apos;&apos;</span><br><span class="line">    &#125;;</span><br><span class="line">    render () &#123;</span><br><span class="line">        return (&#123;</span><br><span class="line">            &lt;div&gt;这个事React.Component的语法&lt;/div&gt;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 使用这个之前需要先安装依赖prop-types</span><br><span class="line">Mydemo2.propTypes  = &#123;</span><br><span class="line">	userId: PropTypes.number.isRequired</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>状态state的区别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// React.createClass：通过getInitialState()方法返回一个包含初始值的对象</span><br><span class="line">const Mydemo = React.createClass(&#123;</span><br><span class="line">    // 初始化state数据,这个在es6中的class就失效了，直接可以通过在constructor设置state</span><br><span class="line">    getInitialState()&#123; </span><br><span class="line">        return &#123;</span><br><span class="line">            isEditing: false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    render () &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;这个是demo&lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default class Mydemo2 extends React.Component &#123;</span><br><span class="line">    constructor (props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            name: &apos;陈焦滨&amp;kevin&apos;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    render () &#123;</span><br><span class="line">        return (&#123;</span><br><span class="line">            &lt;div&gt;这个事React.Component的语法&lt;/div&gt;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>this区别<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">// React.createClass：会正确绑定this</span><br><span class="line">const Mydemo = React.createClass(&#123;</span><br><span class="line">    handlerFun () &#123;</span><br><span class="line">        console.log(&apos;测试&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">    render () &#123;</span><br><span class="line">        return (</span><br><span class="line">            &#123;/*这是注释：这里的点击事件不用绑定this，createClas这种方式的this已经是指到当前实例*/&#125;</span><br><span class="line">            &lt;div onClick=&quot;this.handlerFun&quot;&gt;这个是demo&lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// React.Component：由于使用了 ES6，这里会有些微不同，属性并不会自动绑定到 React 类的实例上。</span><br><span class="line">export default class Mydemo2 extends React.Component &#123;</span><br><span class="line">    constructor (props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            name: &apos;我是state参数&apos;</span><br><span class="line">        &#125;</span><br><span class="line">        // 推荐这种绑定方式，因为在这里只需要绑定一次就好了，如果是在render里面绑定，每一次调用render(可以说是非常频繁！)一个新的函数都会被创建。与在构造函数里只绑定一次相比就慢一些</span><br><span class="line">        // this.handlerFun = this.handlerFun.bind(this)</span><br><span class="line">    &#125;</span><br><span class="line">    handlerFun (val) &#123;</span><br><span class="line">        console.log(val)</span><br><span class="line">    &#125;</span><br><span class="line">    render () &#123;</span><br><span class="line">        return (&#123;</span><br><span class="line">            &#123;/*这里通过bind绑定this*/&#125;</span><br><span class="line">            &lt;div onClick=&quot;this.handlerFun.bind(this,&apos;我是参数&apos;)&quot;&gt;这个事React.Component的语法&lt;/div&gt;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 还可以通过箭头函数直接替换函数在类中的声明，这是es7的方式</span><br><span class="line">export default class MyDemo2 extends React.Component &#123;</span><br><span class="line">    constructor (props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            name: &apos;我是初始值&apos;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    const handerFun = (event) = &#123;</span><br><span class="line">        this.setState(&#123;</span><br><span class="line">            name:&apos;我被改变了&apos;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>mixin的使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">// React.createClass：使用 React.createClass 的话，我们可以在创建组件时添加一个叫做 mixins 的属性，并将可供混合的类的集合以数组的形式赋给 mixins。</span><br><span class="line">// 创建一个文件MxinCommon.js</span><br><span class="line">let MyMixin = &#123;</span><br><span class="line">    doSomething()&#123;</span><br><span class="line">        console.log(&apos;我是mixin&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">export default MyMixin</span><br><span class="line"></span><br><span class="line">// React.createClass</span><br><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import MyMixin from &apos;./MxinCommon.js&apos;</span><br><span class="line">let TodoItem = React.createClass(&#123;</span><br><span class="line">    mixins: [MyMixin]</span><br><span class="line">    render()&#123;</span><br><span class="line">        return &lt;div&gt;&lt;/div&gt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">// React.Component,es6没有mixin这种混合，只能通过第三方插件react-mixin来使用，安装完这个依赖后就可以使用啦</span><br><span class="line">import ReactMixin from &apos;react-mixin&apos;</span><br><span class="line">import mixinLog from &apos;./MxinCommon.js&apos;</span><br><span class="line">export default class MyDemo2 React.Component &#123;</span><br><span class="line">    constructor (props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">        this.handler = this.handler.bind(this)</span><br><span class="line">    &#125;</span><br><span class="line">    handler () &#123;</span><br><span class="line">        mixinLog.doSomething() //这样就调用到mixin的方法了</span><br><span class="line">    &#125;</span><br><span class="line">    render () &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div onClick=&quot;this.handler&quot;&gt;&lt;/div&gt;    </span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">ReactMixin(MyDemo2.prototype, mixinLog)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>祝各位前端开发的小伙伴爬坑快乐 <a name=":blush:"></a></p>
+
+                
+<p class="mediumturquoise-link-context">
+    <a href="/2019/02/24/vue-router前端路由的两种实现/" rel="next" title="vue-router前端路由的两种实现">
+    上一篇：vue-router前端路由的两种实现
+  </a>
+</p>
+
+
+
+<p class="mediumturquoise-link-context">
+    <a href="/2018/04/19/JS实现串行和并行请求/" rel="next" title="串行和并行">
+    下一篇：串行和并行
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large mediumturquoise">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    
+    <div class="footer-container container">
+        <div class="row">
+            
+            <div class="social-group col m4 s12">
+                <h5 class="white-text">社交</h5>
+                
+                    <a class="social-link" href="https://weibo.com/u/2956405011?is_all=1" target="_blank">
+                        <i class="fa fa-2x fa-weibo"></i>
+                    </a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaobin" target="_blank">
+                        <i class="fa fa-2x fa-github"></i>
+                    </a>
+                
+                    <a class="social-link" href="/atom.xml" target="_blank">
+                        <i class="fa fa-2x fa-rss"></i>
+                    </a>
+                
+                
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="site-visitors-container white-text">
+        <span>
+            <i class="fa fa-user"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+        </span>
+        <span>&nbsp;|&nbsp;</span>
+        <span>
+            <i class="fa fa-eye"></i>
+            <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+        </span>
+    </div>
+
+
+            </div>
+            
+
+            
+            <div class="col m8 s12">
+                <h5 class="white-text">友情链接</h5>
+                
+                    <a class="social-link" href="https://chenjiaobin.github.io/" target="_blank">作者的技术博客</a>
+                
+                    <a class="social-link" href="https://github.com/chenjiaobin" target="_blank">Github地址</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <div class="footer-copyright mediumturquoise-link-context">
+        <div class="container" style="text-align:center">
+            kevin© 2017 chenjiaobin.github.io, All rights reserved.
+           <!-- <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>-->
+        </div>
+    </div>
+</footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('mediumturquoise lighten-2');
+
+            
+            // 添加new标签
+            $('.menu-reading, .menu-about').append('<span class="new badge mediumturquoise"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword mediumturquoise lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword mediumturquoise lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<script type="text/javascript" async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+</body>
+</html>
